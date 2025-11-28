@@ -16,9 +16,9 @@ const RecentExpensesCard = () => {
   return (
     <Card>
       <CardHeader className={`flex justify-between items-center`}>
-        <CardTitle className={`text-xl`}>Recent Expenses</CardTitle>
+        <CardTitle className={`text-xl font-semibold`}>Recent Expenses</CardTitle>
         <Button
-          className={`bg-blue-600`}
+          className={`bg-blue-600 hover:bg-blue-700`}
           size={`lg`}
           onClick={() => openModal("expenseModal")}
         >

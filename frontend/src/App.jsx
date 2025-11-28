@@ -13,13 +13,11 @@ import { Home, TrendingUp, TrendingDown, Target } from "lucide-react";
 import { Routes, Route } from "react-router-dom";
 
 const App = () => {
-  document.body.className = "bg-[#F5F5F5]";
-
   const expenseModal = useModal((state) => state.expenseModal);
   if (expenseModal) {
-    document.body.className = "overflow-hidden";
+    document.body.className = "overflow-hidden bg-slate-50";
   } else {
-    document.body.className = "overflow-auto";
+    document.body.className = "overflow-auto bg-slate-50";
   }
 
   return (

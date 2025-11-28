@@ -1,6 +1,6 @@
 import PageLayout from "@/components/layouts/PageLayout";
-import useModal from "@/store/useModalStore";
 import RecentExpensesCard from "./components/RecentExpensesCard";
+import ExpenseOverview from "./components/ExpenseOverview";
 
 /*
   Layouting
@@ -16,6 +16,7 @@ const Expense = () => {
       title="Expenses"
       subtitle="Monitor and categorize your spending"
     >
+      <ExpenseOverview/>
       <RecentExpensesCard/>
     </PageLayout>
   );
