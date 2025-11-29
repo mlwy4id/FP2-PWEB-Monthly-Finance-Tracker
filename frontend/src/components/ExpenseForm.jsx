@@ -5,6 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import useExpense from "@/store/useExpenseStore";
 import useModal from "@/store/useModalStore";
 import { expenseSchema } from "@/schemas/expenseSchema";
+import { moneyFormat } from "@/utils/moneyFormat";
 
 const ExpenseForm = () => {
   const addExpenses = useExpense((state) => state.addExpenses);
@@ -14,14 +15,15 @@ const ExpenseForm = () => {
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors, isValid },
   } = useForm({
     resolver: zodResolver(expenseSchema),
     shouldFocusError: true,
     defaultValues: {
-      date: "",
+      date: new Date().toISOString().split("T")[0],
       title: "",
-      amount: 0,
+      amount: "",
       wallet: "",
       category: "",
     },
@@ -79,8 +81,12 @@ const ExpenseForm = () => {
           </label>
           <Input
             id="amount"
-            {...register("amount", { valueAsNumber: true })}
-            type="number"
+            {...register("amount")}
+            onChange={(e) => {
+              setValue("amount", moneyFormat(e.target.value));
+            }}
+            type="text"
+            inputMode="numeric"
             className={`
               border-neutral-300 bg-[#F5F5F5]
               ${
@@ -138,7 +144,10 @@ const ExpenseForm = () => {
             <p className="text-red-600">{errors.category.message}</p>
           )}
         </div>
-        <Button disabled={!isValid} className={`mt-2 bg-blue-600`}>
+        <Button
+          disabled={!isValid}
+          className={`mt-2 bg-blue-600 hover:bg-blue-700`}
+        >
           Add Expense
         </Button>
       </div>
