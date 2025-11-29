@@ -15,14 +15,8 @@ import { Routes, Route } from "react-router-dom";
 const App = () => {
   const modalName = useModal((state) => state.name);
 
-  if (modalName !== "") {
-    document.body.className = "overflow-hidden bg-slate-50";
-  } else {
-    document.body.className = "overflow-auto bg-slate-50";
-  }
-
   return (
-    <div className="flex">
+    <div className="flex h-screen">
       <Sidebar>
         <SidebarOptions icon={<Home size={24} />} text={"Dashboard"} to="/" />
         <SidebarOptions
@@ -42,7 +36,11 @@ const App = () => {
         />
       </Sidebar>
 
-      <div className="w-full h-full">
+      <div
+        className={`w-full flex-1 min-h-screen bg-slate-50 ${
+          modalName === "" ? "overflow-y-auto" : "overflow-hidden"
+        }`}
+      >
         <Routes>
           <Route path="/" element={<Dashboard />} />
           <Route path="/income" element={<Income />} />
