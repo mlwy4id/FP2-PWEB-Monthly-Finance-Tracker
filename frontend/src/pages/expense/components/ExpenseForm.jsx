@@ -19,7 +19,6 @@ const ExpenseForm = () => {
     register,
     handleSubmit,
     setValue,
-    trigger,
     reset,
     formState: { errors, isValid },
   } = useForm({
@@ -52,8 +51,6 @@ const ExpenseForm = () => {
         category: "",
       });
     }
-
-    setTimeout(() => trigger(), 0);
   }, [modalMode, payload]);
 
   const onSubmit = (data) => {

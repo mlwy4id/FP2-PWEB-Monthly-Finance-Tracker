@@ -52,9 +52,21 @@ const RecentExpensesTable = () => {
                 <DropdownMenuTrigger>
                   <BsThreeDotsVertical />
                 </DropdownMenuTrigger>
-                <DropdownMenuContent className="w-40 rounded-lg border shadow-sm bg-white p-3" align="end" side="left">
-                  <DropdownMenuItem onClick={() => openModal("expense", "edit", expense)}>Edit</DropdownMenuItem>
-                  <DropdownMenuItem>Delete</DropdownMenuItem>
+                <DropdownMenuContent
+                  className="w-40 rounded-lg border shadow-sm bg-white p-3"
+                  align="end"
+                  side="left"
+                >
+                  <DropdownMenuItem
+                    onClick={() => openModal("expense", "edit", expense)}
+                  >
+                    Edit
+                  </DropdownMenuItem>
+                  <DropdownMenuItem
+                    onClick={() => openModal("delete", "", expense)}
+                  >
+                    Delete
+                  </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
             </td>

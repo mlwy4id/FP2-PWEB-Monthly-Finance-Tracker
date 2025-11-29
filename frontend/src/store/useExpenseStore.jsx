@@ -14,6 +14,10 @@ const useExpense = create((set) => ({
         expense.id === id ? { ...expense, ...newExpense } : expense
       ),
     })),
+  deleteExpense: (id) =>
+    set((state) => ({
+      expenses: state.expenses.filter((expense) => expense.id !== id),
+    })),
 }));
 
 export default useExpense;

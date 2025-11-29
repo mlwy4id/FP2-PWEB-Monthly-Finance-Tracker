@@ -9,13 +9,16 @@ import { motion } from "framer-motion";
 import ExpenseForm from "../pages/expense/components/ExpenseForm";
 import { IoIosClose } from "react-icons/io";
 import useModal from "@/store/useModalStore";
+import DeleteDialog from "./DeleteDialog";
 
 const MODAL_COMPONENTS = {
   expense: ExpenseForm,
+  delete: DeleteDialog,
 };
 
 const MODAL_TITLE = (modalMode) => ({
   expense: modalMode === "edit" ? "Edit Expense" : "Add Expense",
+  delete: "Confirm Delete",
 });
 
 const Modal = () => {
