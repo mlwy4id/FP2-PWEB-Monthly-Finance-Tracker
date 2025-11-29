@@ -6,16 +6,21 @@ import useExpense from "@/store/useExpenseStore";
 import useModal from "@/store/useModalStore";
 import { expenseSchema } from "@/schemas/expenseSchema";
 import { moneyFormat } from "@/utils/moneyFormat";
+import { useEffect } from "react";
 
 const ExpenseForm = () => {
-  const addExpenses = useExpense((state) => state.addExpenses);
-  const expenses = useExpense((state) => state.expenses);
+  const addExpenses = useExpense((state) => state.addExpense);
+  const updateExpense = useExpense((state) => state.updateExpense);
   const closeModal = useModal((state) => state.closeModal);
+  const modalMode = useModal((state) => state.mode);
+  const payload = useModal((state) => state.payload);
 
   const {
     register,
     handleSubmit,
     setValue,
+    trigger,
+    reset,
     formState: { errors, isValid },
   } = useForm({
     resolver: zodResolver(expenseSchema),
@@ -29,15 +34,40 @@ const ExpenseForm = () => {
     },
   });
 
-  const onSubmit = (data) => {
-    const dataWithId = {
-      id: crypto.randomUUID(),
-      ...data,
-    };
+  useEffect(() => {
+    if (modalMode === "edit" && payload) {
+      reset({
+        date: payload.date,
+        title: payload.title,
+        amount: moneyFormat(payload.amount),
+        wallet: payload.wallet,
+        category: payload.category,
+      });
+    } else if (modalMode === "add") {
+      reset({
+        date: new Date().toISOString().split("T")[0],
+        title: "",
+        amount: "",
+        wallet: "",
+        category: "",
+      });
+    }
 
-    addExpenses(dataWithId);
-    console.log(expenses);
-    closeModal("expenseModal");
+    setTimeout(() => trigger(), 0);
+  }, [modalMode, payload]);
+
+  const onSubmit = (data) => {
+    if (modalMode === "add") {
+      const dataWithId = {
+        id: crypto.randomUUID(),
+        ...data,
+      };
+      addExpenses(dataWithId);
+    } else if (modalMode === "edit" && payload) {
+      updateExpense(payload.id, data);
+    }
+
+    closeModal();
   };
 
   return (
@@ -148,7 +178,7 @@ const ExpenseForm = () => {
           disabled={!isValid}
           className={`mt-2 bg-blue-600 hover:bg-blue-700`}
         >
-          Add Expense
+          {modalMode === "add" ? "Add Expense" : "Save Change"}
         </Button>
       </div>
     </form>

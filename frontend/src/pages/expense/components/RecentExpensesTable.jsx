@@ -1,6 +1,7 @@
 import { DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { mockExpenses } from "@/mocks/expenseMock";
 import useExpense from "@/store/useExpenseStore";
+import useModal from "@/store/useModalStore";
 import { dateFormat } from "@/utils/dateFormat";
 import { moneyFormat } from "@/utils/moneyFormat";
 import {
@@ -14,6 +15,7 @@ import { useEffect } from "react";
 const RecentExpensesTable = () => {
   const expense = useExpense((state) => state.expenses);
   const setExpenses = useExpense((state) => state.setExpenses);
+  const openModal = useModal((state) => state.openModal);
 
   useEffect(() => {
     setExpenses(mockExpenses);
@@ -51,7 +53,7 @@ const RecentExpensesTable = () => {
                   <BsThreeDotsVertical />
                 </DropdownMenuTrigger>
                 <DropdownMenuContent className="w-40 rounded-lg border shadow-sm bg-white p-3" align="end" side="left">
-                  <DropdownMenuItem>Edit</DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => openModal("expense", "edit", expense)}>Edit</DropdownMenuItem>
                   <DropdownMenuItem>Delete</DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>

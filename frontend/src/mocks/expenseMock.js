@@ -1,5 +1,8 @@
+import { id } from "zod/v4/locales";
+
 export const mockExpenses = [
   {
+    id: 'mwlmlwm',
     date: "2025-11-20",
     title: "Ngopi sore",
     amount: "18000",
@@ -7,6 +10,7 @@ export const mockExpenses = [
     category: "Food",
   },
   {
+    id: 'aodjwodwo',
     date: "2025-11-21",
     title: "Bensin motor",
     amount: "25000",
@@ -14,6 +18,7 @@ export const mockExpenses = [
     category: "Transport",
   },
   {
+    id: 'meowvmowevmwe',
     date: "2025-11-21",
     title: "Makan siang",
     amount: "32000",
@@ -21,6 +26,7 @@ export const mockExpenses = [
     category: "Food",
   },
   {
+    id: 'aodmodwo',
     date: "2025-11-22",
     title: "Beli sabun & odol",
     amount: "27000",
@@ -28,6 +34,7 @@ export const mockExpenses = [
     category: "Needs",
   },
   {
+    id: 'jiqevjeovmvewm',
     date: "2025-11-23",
     title: "Langganan Spotify",
     amount: "54000",
@@ -35,6 +42,7 @@ export const mockExpenses = [
     category: "Subscription",
   },
   {
+    id: '0e2j2if2n',
     date: "2025-11-24",
     title: "Nonton bioskop",
     amount: "45000",
@@ -42,6 +50,7 @@ export const mockExpenses = [
     category: "Entertainment",
   },
   {
+    id: 'vneivjw0v',
     date: "2025-11-24",
     title: "Beli buku",
     amount: "75000",

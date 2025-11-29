@@ -14,7 +14,6 @@ import { Routes, Route } from "react-router-dom";
 
 const App = () => {
   const modalName = useModal((state) => state.name);
-  const modalMode = useModal((state) => state.mode);
 
   if (modalName !== "") {
     document.body.className = "overflow-hidden bg-slate-50";
@@ -56,7 +55,7 @@ const App = () => {
           <>
             <div className="fixed inset-0 bg-black/40 z-20" />
             <div className="fixed inset-0 flex justify-center pt-4 z-30">
-              <Modal name={modalName} mode={modalMode} />
+              <Modal />
             </div>
           </>
         )}

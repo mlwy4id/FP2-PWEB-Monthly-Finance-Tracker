@@ -4,10 +4,15 @@ const useExpense = create((set) => ({
   expenses: [],
 
   setExpenses: (expenses) => set({ expenses }),
-
-  addExpenses: (newExpense) =>
+  addExpense: (expense) =>
     set((state) => ({
-      expenses: [...state.expenses, newExpense],
+      expenses: [...state.expenses, expense],
+    })),
+  updateExpense: (id, newExpense) =>
+    set((state) => ({
+      expenses: state.expenses.map((expense) =>
+        expense.id === id ? { ...expense, ...newExpense } : expense
+      ),
     })),
 }));
 

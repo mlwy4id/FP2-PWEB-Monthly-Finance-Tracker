@@ -10,8 +10,19 @@ import ExpenseForm from "../pages/expense/components/ExpenseForm";
 import { IoIosClose } from "react-icons/io";
 import useModal from "@/store/useModalStore";
 
-const Modal = ({ name, mode }) => {
+const MODAL_COMPONENTS = {
+  expense: ExpenseForm,
+};
+
+const MODAL_TITLE = (modalMode) => ({
+  expense: modalMode === "edit" ? "Edit Expense" : "Add Expense",
+});
+
+const Modal = () => {
+  const modalName = useModal((state) => state.name);
+  const modalMode = useModal((state) => state.mode);
   const closeModal = useModal((state) => state.closeModal);
+  const ModalContent = MODAL_COMPONENTS[modalName];
 
   return (
     <motion.div
@@ -26,12 +37,11 @@ const Modal = ({ name, mode }) => {
       <Card className={`w-full bg-[#FFFFFF]`}>
         <CardHeader>
           <CardTitle className={`text-xl flex justify-between items-center`}>
-            Add New Expense
+            {MODAL_TITLE(modalMode)[modalName]}
             <IoIosClose size={32} onClick={() => closeModal()} />
           </CardTitle>
         </CardHeader>
-        <CardContent>{name === "expense" && <ExpenseForm />}</CardContent>
-        <CardFooter></CardFooter>
+        <CardContent>{ModalContent && <ModalContent />}</CardContent>
       </Card>
     </motion.div>
   );
