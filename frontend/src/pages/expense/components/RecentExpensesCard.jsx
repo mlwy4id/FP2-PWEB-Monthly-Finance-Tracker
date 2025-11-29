@@ -13,6 +13,7 @@ import useModal from "@/store/useModalStore";
 
 const RecentExpensesCard = () => {
   const openModal = useModal((state) => state.openModal);
+
   return (
     <Card className={`w-full`}>
       <CardHeader className={`flex justify-between items-center`}>

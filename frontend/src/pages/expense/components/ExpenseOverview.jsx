@@ -4,7 +4,7 @@ import { FaArrowTrendUp } from "react-icons/fa6";
 
 const ExpenseOverview = () => {
   return (
-    <div className="flex justify-between items-center">
+    <div className="flex justify-between items-center flex-wrap">
       <OverviewCard
         title="Monthly Expense"
         logo={<FaCalendar className="text-rose-700" size={18} />}

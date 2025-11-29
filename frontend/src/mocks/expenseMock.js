@@ -1,0 +1,51 @@
+export const mockExpenses = [
+  {
+    date: "2025-11-20",
+    title: "Ngopi sore",
+    amount: "18000",
+    wallet: "Cash",
+    category: "Food",
+  },
+  {
+    date: "2025-11-21",
+    title: "Bensin motor",
+    amount: "25000",
+    wallet: "OVO",
+    category: "Transport",
+  },
+  {
+    date: "2025-11-21",
+    title: "Makan siang",
+    amount: "32000",
+    wallet: "Gopay",
+    category: "Food",
+  },
+  {
+    date: "2025-11-22",
+    title: "Beli sabun & odol",
+    amount: "27000",
+    wallet: "ShopeePay",
+    category: "Needs",
+  },
+  {
+    date: "2025-11-23",
+    title: "Langganan Spotify",
+    amount: "54000",
+    wallet: "Debit BCA",
+    category: "Subscription",
+  },
+  {
+    date: "2025-11-24",
+    title: "Nonton bioskop",
+    amount: "45000",
+    wallet: "Dana",
+    category: "Entertainment",
+  },
+  {
+    date: "2025-11-24",
+    title: "Beli buku",
+    amount: "75000",
+    wallet: "Debit Mandiri",
+    category: "Education",
+  },
+];
