@@ -1,5 +1,6 @@
 import useExpense from "@/store/useExpenseStore";
 import { dateFormat } from "@/utils/dateFormat";
+import { moneyFormat } from "@/utils/moneyFormat";
 
 const RecentExpensesTable = () => {
   const expense = useExpense((state) => state.expenses);
@@ -23,7 +24,7 @@ const RecentExpensesTable = () => {
               </span>
             </td>
             <td className="py-3 px-4">{dateFormat(expense.date)}</td>
-            <td className="py-3 px-4 text-red-500">-Rp{expense.amount}</td>
+            <td className="py-3 px-4 text-red-500">-Rp{moneyFormat(String(expense.amount))}</td>
           </tr>
         ))}
       </tbody>

@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
-import { Input } from "./ui/input";
-import { Button } from "./ui/button";
+import { Input } from "../../../components/ui/input";
+import { Button } from "../../../components/ui/button";
 import { zodResolver } from "@hookform/resolvers/zod";
 import useExpense from "@/store/useExpenseStore";
 import useModal from "@/store/useModalStore";

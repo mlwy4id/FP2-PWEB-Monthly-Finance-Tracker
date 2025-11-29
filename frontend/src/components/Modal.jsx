@@ -6,11 +6,11 @@ import {
   CardTitle,
 } from "./ui/card";
 import { motion } from "framer-motion";
-import ExpenseForm from "./ExpenseForm";
+import ExpenseForm from "../pages/expense/components/ExpenseForm";
 import { IoIosClose } from "react-icons/io";
 import useModal from "@/store/useModalStore";
 
-const Modal = () => {
+const Modal = ({ name, mode }) => {
   const closeModal = useModal((state) => state.closeModal);
 
   return (
@@ -27,12 +27,10 @@ const Modal = () => {
         <CardHeader>
           <CardTitle className={`text-xl flex justify-between items-center`}>
             Add New Expense
-            <IoIosClose size={32} onClick={() => closeModal("expenseModal")}/>
+            <IoIosClose size={32} onClick={() => closeModal()} />
           </CardTitle>
         </CardHeader>
-        <CardContent>
-          <ExpenseForm />
-        </CardContent>
+        <CardContent>{name === "expense" && <ExpenseForm />}</CardContent>
         <CardFooter></CardFooter>
       </Card>
     </motion.div>

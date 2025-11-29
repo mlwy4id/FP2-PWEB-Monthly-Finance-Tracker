@@ -13,8 +13,10 @@ import { Home, TrendingUp, TrendingDown, Target } from "lucide-react";
 import { Routes, Route } from "react-router-dom";
 
 const App = () => {
-  const expenseModal = useModal((state) => state.expenseModal);
-  if (expenseModal) {
+  const modalName = useModal((state) => state.name);
+  const modalMode = useModal((state) => state.mode);
+
+  if (modalName !== "") {
     document.body.className = "overflow-hidden bg-slate-50";
   } else {
     document.body.className = "overflow-auto bg-slate-50";
@@ -50,11 +52,11 @@ const App = () => {
           <Route path="/budget" element={<Budget />} />
         </Routes>
 
-        {expenseModal && (
+        {modalName !== "" && (
           <>
             <div className="fixed inset-0 bg-black/40 z-20" />
             <div className="fixed inset-0 flex justify-center pt-4 z-30">
-              <Modal />
+              <Modal name={modalName} mode={modalMode} />
             </div>
           </>
         )}

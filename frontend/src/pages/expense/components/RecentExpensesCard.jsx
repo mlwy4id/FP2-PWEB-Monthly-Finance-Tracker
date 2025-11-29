@@ -14,13 +14,13 @@ import useModal from "@/store/useModalStore";
 const RecentExpensesCard = () => {
   const openModal = useModal((state) => state.openModal);
   return (
-    <Card>
+    <Card className={`w-full`}>
       <CardHeader className={`flex justify-between items-center`}>
         <CardTitle className={`text-xl font-semibold`}>Recent Expenses</CardTitle>
         <Button
           className={`bg-blue-600 hover:bg-blue-700`}
           size={`lg`}
-          onClick={() => openModal("expenseModal")}
+          onClick={() => openModal("expense", "create")}
         >
           <FaPlus />
           Add Expense

@@ -1,10 +1,11 @@
 import { create } from "zustand";
 
 const useModal = create((set) => ({
-  expenseModal: false,
+  name: "",
+  mode: "",
 
-  openModal: (modalName) => set({ [modalName]: true }),
-  closeModal: (modalName) => set({ [modalName]: false }),
+  openModal: (name, mode) => set({ ['name']: name, ['mode']: mode }),
+  closeModal: () => set({ ['name']: "", ['mode']: "" }),
 }));
 
 export default useModal;
