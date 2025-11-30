@@ -63,7 +63,7 @@ const RecentExpensesTable = () => {
                     Edit
                   </DropdownMenuItem>
                   <DropdownMenuItem
-                    onClick={() => openModal("delete", "", expense)}
+                    onClick={() => openModal("delete", "expense", expense)}
                   >
                     Delete
                   </DropdownMenuItem>
