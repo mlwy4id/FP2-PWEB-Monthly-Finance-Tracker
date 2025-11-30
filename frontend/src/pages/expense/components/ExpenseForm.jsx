@@ -148,13 +148,14 @@ const ExpenseForm = () => {
               <p className="text-red-600">{errors.wallet.message}</p>
             )}
           </div>
-          <label htmlFor="category" className="font-semibold">
-            Category:
-          </label>
-          <select
-            id="category"
-            {...register("category")}
-            className={`
+          <div className="grid gap-2">
+            <label htmlFor="category" className="font-semibold">
+              Category:
+            </label>
+            <select
+              id="category"
+              {...register("category")}
+              className={`
               file:text-foreground placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground dark:bg-input/30 h-9 w-full min-w-0 rounded-md border px-3 py-1 text-base shadow-xs transition-[color,box-shadow] outline-none file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px]
               border-neutral-300 bg-[#F5F5F5]
               ${
@@ -163,13 +164,14 @@ const ExpenseForm = () => {
                   : "border-neutral-300"
               }
             `}
-          >
-            <option value="">Select category</option>
-            <option value="Food">Food</option>
-          </select>
-          {errors.category && (
-            <p className="text-red-600">{errors.category.message}</p>
-          )}
+            >
+              <option value="">Select category</option>
+              <option value="Food">Food</option>
+            </select>
+            {errors.category && (
+              <p className="text-red-600">{errors.category.message}</p>
+            )}
+          </div>
         </div>
         <Button
           disabled={!isValid}
