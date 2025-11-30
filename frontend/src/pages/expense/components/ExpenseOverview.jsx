@@ -1,12 +1,15 @@
 import OverviewCard from "@/components/OverviewCard";
 import useExpense from "@/store/useExpenseStore";
 import { dailyRecap } from "@/utils/dailyRecap";
+import { moneyFormat } from "@/utils/moneyFormat";
 import { monthlyRecap } from "@/utils/monthlyRecap";
 import { FaShoppingBag, FaCalendar } from "react-icons/fa";
 import { FaArrowTrendUp } from "react-icons/fa6";
 
 const ExpenseOverview = () => {
   const expenses = useExpense((state) => state.expenses);
+  const monthlyExpense = monthlyRecap(expenses);
+  const dailyExpense = dailyRecap(expenses);
 
   return (
     <div className="flex justify-between items-center flex-wrap">
@@ -15,7 +18,7 @@ const ExpenseOverview = () => {
         logo={<FaCalendar className="text-rose-700" size={18} />}
       >
         <p className="text-red-800 text-3xl font-semibold tracking-tight">
-          -Rp{monthlyRecap(expenses)}
+          -Rp{moneyFormat(monthlyExpense)}
         </p>
       </OverviewCard>
 
@@ -24,7 +27,7 @@ const ExpenseOverview = () => {
         logo={<FaShoppingBag className="text-orange-700" size={18} />}
       >
         <p className="text-3xl text-orange-800 font-semibold tracking-tight">
-          -Rp{dailyRecap(expenses)}
+          -Rp{moneyFormat(dailyExpense)}
         </p>
       </OverviewCard>
 

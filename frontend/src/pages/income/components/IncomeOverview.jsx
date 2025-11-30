@@ -5,9 +5,12 @@ import { monthlyRecap } from "@/utils/monthlyRecap";
 import { FaDollarSign } from "react-icons/fa";
 import { SunIcon, TrophyIcon } from "lucide-react";
 import { FaArrowTrendUp } from "react-icons/fa6";
+import { moneyFormat } from "@/utils/moneyFormat";
 
 const IncomeOverview = () => {
   const incomes = useIncome((state) => state.incomes);
+  const monthlyIncome = monthlyRecap(incomes);
+  const dailyIncome = dailyRecap(incomes);
 
   return (
     <div className="flex justify-between items-center flex-wrap">
@@ -16,7 +19,7 @@ const IncomeOverview = () => {
         logo={<FaDollarSign className="text-green-600" size={18} />}
       >
         <p className="text-green-700 text-3xl font-semibold tracking-tight">
-          +Rp{monthlyRecap(incomes)}
+          +Rp{moneyFormat(monthlyIncome)}
         </p>
       </OverviewCard>
 
@@ -25,7 +28,7 @@ const IncomeOverview = () => {
         logo={<SunIcon className="text-teal-600" size={18} />}
       >
         <p className="text-3xl text-teal-700 font-semibold tracking-tight">
-          +Rp{dailyRecap(incomes)}
+          +Rp{moneyFormat(dailyIncome)}
         </p>
       </OverviewCard>
 

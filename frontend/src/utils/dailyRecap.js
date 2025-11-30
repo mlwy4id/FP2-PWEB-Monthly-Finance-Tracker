@@ -11,5 +11,5 @@ export const dailyRecap = (items) => {
     return acc;
   }, 0);
 
-  return moneyFormat(total);
+  return total;
 };
