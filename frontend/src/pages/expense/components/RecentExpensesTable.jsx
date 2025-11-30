@@ -1,5 +1,4 @@
 import { DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { mockExpenses } from "@/mocks/expenseMock";
 import useExpense from "@/store/useExpenseStore";
 import useModal from "@/store/useModalStore";
 import { dateFormat } from "@/utils/dateFormat";
@@ -10,16 +9,10 @@ import {
   DropdownMenuItem,
 } from "@radix-ui/react-dropdown-menu";
 import { BsThreeDotsVertical } from "react-icons/bs";
-import { useEffect } from "react";
 
 const RecentExpensesTable = () => {
   const expense = useExpense((state) => state.expenses);
-  const setExpenses = useExpense((state) => state.setExpenses);
   const openModal = useModal((state) => state.openModal);
-
-  useEffect(() => {
-    setExpenses(mockExpenses);
-  }, []);
 
   return (
     <table className="w-full">

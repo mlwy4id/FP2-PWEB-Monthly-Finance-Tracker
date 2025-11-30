@@ -8,18 +8,11 @@ import {
   DropdownMenuItem,
 } from "@radix-ui/react-dropdown-menu";
 import { BsThreeDotsVertical } from "react-icons/bs";
-import { useEffect } from "react";
 import useIncome from "@/store/useIncomeStore";
-import { mockIncomes } from "@/mocks/incomeMock";
 
 const RecentIncomesTable = () => {
   const incomes = useIncome((state) => state.incomes);
-  const setIncomes = useIncome((state) => state.setIncomes);
   const openModal = useModal((state) => state.openModal);
-
-  useEffect(() => {
-    setIncomes(mockIncomes);
-  }, []);
 
   return (
     <table className="w-full">

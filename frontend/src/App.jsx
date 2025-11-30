@@ -12,9 +12,21 @@ import { Home, TrendingUp, TrendingDown, Target } from "lucide-react";
 
 import { Routes, Route } from "react-router-dom";
 import IncomeHistory from "./pages/income/IncomeHistory";
+import useIncome from "./store/useIncomeStore";
+import useExpense from "./store/useExpenseStore";
+import { useEffect } from "react";
+import { mockIncomes } from "./mocks/incomeMock";
+import { mockExpenses } from "./mocks/expenseMock";
 
 const App = () => {
   const modalName = useModal((state) => state.name);
+  const setIncomes = useIncome((state) => state.setIncomes);
+  const setExpenses = useExpense((state) => state.setExpenses);
+
+  useEffect(() => {
+    setIncomes(mockIncomes);
+    setExpenses(mockExpenses);
+  }, []);
 
   return (
     <div className="flex h-screen">
