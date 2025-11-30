@@ -7,6 +7,8 @@ import { NavLink } from "react-router-dom";
 import useModal from "@/store/useModalStore";
 
 const Income = () => {
+  const openModal = useModal((state) => state.openModal);
+  
   return (
     <PageLayout title="Income" subtitle="Track and manage your income sources">
       <IncomeOverview />

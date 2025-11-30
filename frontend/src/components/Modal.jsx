@@ -1,23 +1,20 @@
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "./ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import { motion } from "framer-motion";
 import ExpenseForm from "../pages/expense/components/ExpenseForm";
 import { IoIosClose } from "react-icons/io";
 import useModal from "@/store/useModalStore";
 import DeleteDialog from "./DeleteDialog";
+import IncomeForm from "@/pages/income/components/IncomeForm";
 
 const MODAL_COMPONENTS = {
   expense: ExpenseForm,
+  income: IncomeForm,
   delete: DeleteDialog,
 };
 
 const MODAL_TITLE = (modalMode) => ({
   expense: modalMode === "edit" ? "Edit Expense" : "Add Expense",
+  income: modalMode === "edit" ? "Edit Income" : "Add Income",
   delete: "Confirm Delete",
 });
 

@@ -1,11 +1,21 @@
 import useModal from "@/store/useModalStore";
 import { Button } from "./ui/button";
 import useExpense from "@/store/useExpenseStore";
+import useIncome from "@/store/useIncomeStore";
 
 const DeleteDialog = () => {
+  const mode = useModal((state) => state.mode);
   const item = useModal((state) => state.item);
   const closeModal = useModal((state) => state.closeModal);
   const deleteExpense = useExpense((state) => state.deleteExpense);
+  const deleteIncome = useIncome((state) => state.deleteIncome);
+
+  const DELETE_ITEM = {
+    expense: deleteExpense,
+    income: deleteIncome,
+  };
+
+  const deleteMethod = DELETE_ITEM[mode];
 
   return (
     <div className="flex flex-col gap-4">
@@ -20,7 +30,7 @@ const DeleteDialog = () => {
         <Button
           variant={`destructive`}
           onClick={() => {
-            deleteExpense(item.id);
+            deleteMethod(item.id);
             closeModal();
           }}
         >

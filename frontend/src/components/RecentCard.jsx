@@ -6,9 +6,11 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import RecentIncomesTable from "@/pages/income/components/RecentIncomesTable";
 
 const RECENTCARD_CONTENT = {
   expense: RecentExpensesTable,
+  income: RecentIncomesTable,
 };
 
 const RecentCard = ({ type, title, button, children }) => {

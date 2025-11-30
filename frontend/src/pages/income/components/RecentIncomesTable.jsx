@@ -1,0 +1,80 @@
+import { DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import useModal from "@/store/useModalStore";
+import { dateFormat } from "@/utils/dateFormat";
+import { moneyFormat } from "@/utils/moneyFormat";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+} from "@radix-ui/react-dropdown-menu";
+import { BsThreeDotsVertical } from "react-icons/bs";
+import { useEffect } from "react";
+import useIncome from "@/store/useIncomeStore";
+import { mockIncomes } from "@/mocks/incomeMock";
+
+const RecentIncomesTable = () => {
+  const incomes = useIncome((state) => state.incomes);
+  const setIncomes = useIncome((state) => state.setIncomes);
+  const openModal = useModal((state) => state.openModal);
+
+  useEffect(() => {
+    setIncomes(mockIncomes);
+  }, []);
+
+  return (
+    <table className="w-full">
+      <thead>
+        <tr className="border-b">
+          <th className="text-left py-3 px-4">Title</th>
+          <th className="text-left py-3 px-4">Wallet</th>
+          <th className="text-left py-3 px-4">Date</th>
+          <th className="text-left py-3 px-4">Amount</th>
+        </tr>
+      </thead>
+      <tbody>
+        {incomes.slice(-10).map((income) => (
+          <tr
+            key={income.id}
+            className="hover:bg-slate-50 cursor-pointer group"
+          >
+            <td className="py-3 px-4">{income.title}</td>
+            <td className="py-3 px-4">
+              <span className="bg-slate-100 text-slate-700 px-2 py-1">
+                {income.wallet}
+              </span>
+            </td>
+            <td className="py-3 px-4">{dateFormat(income.date)}</td>
+            <td className="py-3 px-4 text-green-500">
+              +Rp{moneyFormat(String(income.amount))}
+            </td>
+            <td>
+              <DropdownMenu>
+                <DropdownMenuTrigger>
+                  <BsThreeDotsVertical />
+                </DropdownMenuTrigger>
+                <DropdownMenuContent
+                  className="w-40 rounded-lg border shadow-sm bg-white p-3"
+                  align="end"
+                  side="left"
+                >
+                  <DropdownMenuItem
+                    onClick={() => openModal("income", "edit", income)}
+                  >
+                    Edit
+                  </DropdownMenuItem>
+                  <DropdownMenuItem
+                    onClick={() => openModal("delete", "income", income)}
+                  >
+                    Delete
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  );
+};
+
+export default RecentIncomesTable;
