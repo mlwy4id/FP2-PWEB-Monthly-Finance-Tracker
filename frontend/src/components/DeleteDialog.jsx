@@ -3,7 +3,7 @@ import { Button } from "./ui/button";
 import useExpense from "@/store/useExpenseStore";
 
 const DeleteDialog = () => {
-  const payload = useModal((state) => state.payload);
+  const item = useModal((state) => state.item);
   const closeModal = useModal((state) => state.closeModal);
   const deleteExpense = useExpense((state) => state.deleteExpense);
 
@@ -11,7 +11,7 @@ const DeleteDialog = () => {
     <div className="flex flex-col gap-4">
       <h1>
         Are you sure you want to delete{" "}
-        <span className="font-semibold">{payload.title}</span>?
+        <span className="font-semibold">{item.title}</span>?
       </h1>
       <div className="flex justify-end gap-4">
         <Button variant={`outline`} onClick={() => closeModal()}>
@@ -20,7 +20,7 @@ const DeleteDialog = () => {
         <Button
           variant={`destructive`}
           onClick={() => {
-            deleteExpense(payload.id);
+            deleteExpense(item.id);
             closeModal();
           }}
         >

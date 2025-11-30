@@ -13,7 +13,7 @@ const ExpenseForm = () => {
   const updateExpense = useExpense((state) => state.updateExpense);
   const closeModal = useModal((state) => state.closeModal);
   const modalMode = useModal((state) => state.mode);
-  const payload = useModal((state) => state.payload);
+  const item = useModal((state) => state.item);
 
   const {
     register,
@@ -34,13 +34,13 @@ const ExpenseForm = () => {
   });
 
   useEffect(() => {
-    if (modalMode === "edit" && payload) {
+    if (modalMode === "edit" && item) {
       reset({
-        date: payload.date,
-        title: payload.title,
-        amount: moneyFormat(payload.amount),
-        wallet: payload.wallet,
-        category: payload.category,
+        date: item.date,
+        title: item.title,
+        amount: moneyFormat(item.amount),
+        wallet: item.wallet,
+        category: item.category,
       });
     } else if (modalMode === "add") {
       reset({
@@ -51,7 +51,7 @@ const ExpenseForm = () => {
         category: "",
       });
     }
-  }, [modalMode, payload]);
+  }, [modalMode, item]);
 
   const onSubmit = (data) => {
     if (modalMode === "add") {
@@ -60,8 +60,8 @@ const ExpenseForm = () => {
         ...data,
       };
       addExpenses(dataWithId);
-    } else if (modalMode === "edit" && payload) {
-      updateExpense(payload.id, data);
+    } else if (modalMode === "edit" && item) {
+      updateExpense(item.id, data);
     }
 
     closeModal();
