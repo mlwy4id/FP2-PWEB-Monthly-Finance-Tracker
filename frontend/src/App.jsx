@@ -11,6 +11,7 @@ import SidebarOptions from "./components/SidebarOptions";
 import { Home, TrendingUp, TrendingDown, Target } from "lucide-react";
 
 import { Routes, Route } from "react-router-dom";
+import IncomeHistory from "./pages/income/IncomeHistory";
 
 const App = () => {
   const modalName = useModal((state) => state.name);
@@ -44,6 +45,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Dashboard />} />
           <Route path="/income" element={<Income />} />
+          <Route path="/income/history" element={<IncomeHistory />} />
           <Route path="/expense" element={<Expense />} />
           <Route path="/expense/history" element={<ExpenseHistory />} />
           <Route path="/budget" element={<Budget />} />
