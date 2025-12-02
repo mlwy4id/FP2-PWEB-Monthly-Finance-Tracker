@@ -1,9 +1,7 @@
-import { id } from "zod/v4/locales";
-
 export const mockExpenses = [
   {
     id: 'mwlmlwm',
-    date: "2025-11-20",
+    date: "2025-12-20",
     title: "Ngopi sore",
     amount: 18000,
     wallet: "Cash",
@@ -11,7 +9,7 @@ export const mockExpenses = [
   },
   {
     id: 'aodjwodwo',
-    date: "2025-11-21",
+    date: "2025-12-21",
     title: "Bensin motor",
     amount: 25000,
     wallet: "OVO",
@@ -19,7 +17,7 @@ export const mockExpenses = [
   },
   {
     id: 'meowvmowevmwe',
-    date: "2025-11-21",
+    date: "2025-12-21",
     title: "Makan siang",
     amount: 32000,
     wallet: "Gopay",
@@ -27,7 +25,7 @@ export const mockExpenses = [
   },
   {
     id: 'aodmodwo',
-    date: "2025-11-22",
+    date: "2025-12-22",
     title: "Beli sabun & odol",
     amount: 27000,
     wallet: "ShopeePay",
@@ -35,7 +33,7 @@ export const mockExpenses = [
   },
   {
     id: 'jiqevjeovmvewm',
-    date: "2025-11-23",
+    date: "2025-12-23",
     title: "Langganan Spotify",
     amount: 54000,
     wallet: "Debit BCA",
@@ -43,7 +41,7 @@ export const mockExpenses = [
   },
   {
     id: '0e2j2if2n',
-    date: "2025-11-24",
+    date: "2025-12-24",
     title: "Nonton bioskop",
     amount: 45000,
     wallet: "Dana",
@@ -51,7 +49,7 @@ export const mockExpenses = [
   },
   {
     id: 'vneivjw0v',
-    date: "2025-11-24",
+    date: "2025-12-24",
     title: "Beli buku",
     amount: 75000,
     wallet: "Debit Mandiri",

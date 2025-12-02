@@ -7,6 +7,7 @@ import useModal from "@/store/useModalStore";
 import { expenseSchema } from "@/schemas/expenseSchema";
 import { moneyFormat } from "@/utils/moneyFormat";
 import { useEffect } from "react";
+import { CategoryOptions, WalletOptions } from "@/components/FormOptions";
 
 const ExpenseForm = () => {
   const addExpenses = useExpense((state) => state.addExpense);
@@ -141,8 +142,7 @@ const ExpenseForm = () => {
               }
               `}
             >
-              <option value="">Select wallet</option>
-              <option value="BCA">BCA</option>
+              <WalletOptions />
             </select>
             {errors.wallet && (
               <p className="text-red-600">{errors.wallet.message}</p>
@@ -165,8 +165,7 @@ const ExpenseForm = () => {
               }
             `}
             >
-              <option value="">Select category</option>
-              <option value="Food">Food</option>
+              <CategoryOptions />
             </select>
             {errors.category && (
               <p className="text-red-600">{errors.category.message}</p>

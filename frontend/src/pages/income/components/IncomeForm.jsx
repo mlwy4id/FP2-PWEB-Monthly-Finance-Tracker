@@ -7,6 +7,7 @@ import useModal from "@/store/useModalStore";
 import { incomeSchema } from "@/schemas/incomeSchema";
 import { moneyFormat } from "@/utils/moneyFormat";
 import { useEffect } from "react";
+import { WalletOptions } from "@/components/FormOptions";
 
 const IncomeForm = () => {
   const addIncome = useIncome((state) => state.addIncome);
@@ -140,8 +141,7 @@ const IncomeForm = () => {
               }
               `}
             >
-              <option value="">Select wallet</option>
-              <option value="BCA">BCA</option>
+              <WalletOptions />
             </select>
             {errors.wallet && (
               <p className="text-red-600">{errors.wallet.message}</p>

@@ -17,15 +17,23 @@ import useExpense from "./store/useExpenseStore";
 import { useEffect } from "react";
 import { mockIncomes } from "./mocks/incomeMock";
 import { mockExpenses } from "./mocks/expenseMock";
+import useCategory from "./store/useCategoryStore";
+import useWallet from "./store/useWalletStore";
+import { mockCategories } from "./mocks/categoryMock";
+import { mockWallets } from "./mocks/walletMock";
 
 const App = () => {
   const modalName = useModal((state) => state.name);
   const setIncomes = useIncome((state) => state.setIncomes);
   const setExpenses = useExpense((state) => state.setExpenses);
+  const setCategories = useCategory((state) => state.setCategories);
+  const setWallets = useWallet((state) => state.setWallets);
 
   useEffect(() => {
     setIncomes(mockIncomes);
     setExpenses(mockExpenses);
+    setCategories(mockCategories);
+    setWallets(mockWallets);
   }, []);
 
   return (
