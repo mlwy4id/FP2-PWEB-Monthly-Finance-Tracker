@@ -8,7 +8,7 @@ export const WalletOptions = () => {
     <>
       <option value="">Select wallet</option>
       {wallets.map((wallet) => (
-        <option key={wallet.id} value={wallet.name}>
+        <option key={wallet.id} value={wallet.id}>
           {wallet.name}
         </option>
       ))}
@@ -26,7 +26,7 @@ export const CategoryOptions = () => {
     <>
       <option value="">Select category</option>
       {categories.map((category) => (
-        <option key={category.id} value={category.name}>
+        <option key={category.id} value={category.id}>
           {category.name}
         </option>
       ))}

@@ -14,7 +14,6 @@ const CategoryForm = () => {
   const {
     register,
     handleSubmit,
-    setValue,
     formState: { errors, isValid },
   } = useForm({
     resolver: zodResolver(walletSchema),

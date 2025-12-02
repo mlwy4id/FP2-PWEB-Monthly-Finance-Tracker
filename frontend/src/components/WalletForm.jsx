@@ -14,13 +14,11 @@ const WalletForm = () => {
   const {
     register,
     handleSubmit,
-    setValue,
     formState: { errors, isValid },
   } = useForm({
     resolver: zodResolver(walletSchema),
     defaultValues: {
       name: "",
-      amount: "",
     },
   });
 
@@ -51,32 +49,6 @@ const WalletForm = () => {
             `}
           />
           {errors.name && <p className="text-red-600">{errors.name.message}</p>}
-        </div>
-        <div className="grid gap-2">
-          <label htmlFor="amount" className="font-semibold">
-            Wallet Amount:
-          </label>
-          <Input
-            id="amount"
-            {...register("amount")}
-            onChange={(e) => {
-              setValue("amount", moneyFormat(e.target.value), {
-                shouldValidate: true,
-                shouldDirty: true,
-              });
-            }}
-            type="text"
-            inputMode="numeric"
-            className={`
-              border-neutral-300 bg-[#F5F5F5]
-              ${
-                errors.amount ? "border-red-500 border-2" : "border-neutral-300"
-              }
-            `}
-          />
-          {errors.amount && (
-            <p className="text-red-600">{errors.amount.message}</p>
-          )}
         </div>
 
         <Button
