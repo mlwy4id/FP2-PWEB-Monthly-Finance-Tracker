@@ -5,11 +5,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import useModal from "@/store/useModalStore";
 import { moneyFormat } from "@/utils/moneyFormat";
 import { walletSchema } from "@/schemas/walletSchema";
-import useWallet from "@/store/useWalletStore";
+import useCategory from "@/store/useCategoryStore";
 
-const WalletForm = () => {
+const CategoryForm = () => {
   const closeModal = useModal((state) => state.closeModal);
-  const addWallet = useWallet((state) => state.addWallet);
+  const addCategory = useCategory((state) => state.addCategory);
 
   const {
     register,
@@ -20,7 +20,6 @@ const WalletForm = () => {
     resolver: zodResolver(walletSchema),
     defaultValues: {
       name: "",
-      amount: "",
     },
   });
 
@@ -30,7 +29,7 @@ const WalletForm = () => {
       ...data,
     };
 
-    addWallet(dataWithId);
+    addCategory(dataWithId);
     closeModal();
   };
 
@@ -39,7 +38,7 @@ const WalletForm = () => {
       <div className="flex flex-col gap-4">
         <div className="grid gap-2">
           <label htmlFor="name" className="font-semibold">
-            Wallet Name:
+            Category Name:
           </label>
           <Input
             id="name"
@@ -52,42 +51,16 @@ const WalletForm = () => {
           />
           {errors.name && <p className="text-red-600">{errors.name.message}</p>}
         </div>
-        <div className="grid gap-2">
-          <label htmlFor="amount" className="font-semibold">
-            Wallet Amount:
-          </label>
-          <Input
-            id="amount"
-            {...register("amount")}
-            onChange={(e) => {
-              setValue("amount", moneyFormat(e.target.value), {
-                shouldValidate: true,
-                shouldDirty: true,
-              });
-            }}
-            type="text"
-            inputMode="numeric"
-            className={`
-              border-neutral-300 bg-[#F5F5F5]
-              ${
-                errors.amount ? "border-red-500 border-2" : "border-neutral-300"
-              }
-            `}
-          />
-          {errors.amount && (
-            <p className="text-red-600">{errors.amount.message}</p>
-          )}
-        </div>
 
         <Button
           disabled={!isValid}
           className={`mt-2 bg-blue-600 hover:bg-blue-700`}
         >
-          Add Wallet
+          Add Category
         </Button>
       </div>
     </form>
   );
 };
 
-export default WalletForm;
+export default CategoryForm;

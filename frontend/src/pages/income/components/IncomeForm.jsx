@@ -12,6 +12,7 @@ import { WalletOptions } from "@/components/FormOptions";
 const IncomeForm = () => {
   const addIncome = useIncome((state) => state.addIncome);
   const updateIncome = useIncome((state) => state.updateIncome);
+  const openModal = useModal((state) => state.openModal);
   const closeModal = useModal((state) => state.closeModal);
   const modalMode = useModal((state) => state.mode);
   const item = useModal((state) => state.item);
@@ -140,6 +141,11 @@ const IncomeForm = () => {
                 errors.wallet ? "border-red-500 border-2" : "border-neutral-300"
               }
               `}
+              onChange={(e) => {
+                if (e.target.value === "add_wallet") {
+                  openModal("wallet", "wallet");
+                }
+              }}
             >
               <WalletOptions />
             </select>
@@ -148,6 +154,7 @@ const IncomeForm = () => {
             )}
           </div>
         </div>
+
         <Button
           disabled={!isValid}
           className={`mt-2 bg-blue-600 hover:bg-blue-700`}

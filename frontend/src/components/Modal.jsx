@@ -6,19 +6,22 @@ import useModal from "@/store/useModalStore";
 import DeleteDialog from "./DeleteDialog";
 import IncomeForm from "@/pages/income/components/IncomeForm";
 import WalletForm from "./WalletForm";
+import CategoryForm from "./CategoryForm";
 
 const MODAL_COMPONENTS = {
   expense: ExpenseForm,
   income: IncomeForm,
   delete: DeleteDialog,
   wallet: WalletForm,
+  category: CategoryForm,
 };
 
 const MODAL_TITLE = (modalMode) => ({
   expense: modalMode === "edit" ? "Edit Expense" : "Add Expense",
   income: modalMode === "edit" ? "Edit Income" : "Add Income",
   delete: "Confirm Delete",
-  wallet: "Add Wallet"
+  wallet: "Add Wallet",
+  category: "Add Category",
 });
 
 const Modal = () => {

@@ -170,6 +170,11 @@ const ExpenseForm = () => {
                   : "border-neutral-300"
               }
             `}
+              onChange={(e) => {
+                if (e.target.value === "add_category") {
+                  openModal("category", "category");
+                }
+              }}
             >
               <CategoryOptions />
             </select>
@@ -178,6 +183,7 @@ const ExpenseForm = () => {
             )}
           </div>
         </div>
+        
         <Button
           disabled={!isValid}
           className={`mt-2 bg-blue-600 hover:bg-blue-700`}
