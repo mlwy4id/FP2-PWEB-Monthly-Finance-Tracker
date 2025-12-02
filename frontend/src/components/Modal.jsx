@@ -5,17 +5,20 @@ import { IoIosClose } from "react-icons/io";
 import useModal from "@/store/useModalStore";
 import DeleteDialog from "./DeleteDialog";
 import IncomeForm from "@/pages/income/components/IncomeForm";
+import WalletForm from "./WalletForm";
 
 const MODAL_COMPONENTS = {
   expense: ExpenseForm,
   income: IncomeForm,
   delete: DeleteDialog,
+  wallet: WalletForm,
 };
 
 const MODAL_TITLE = (modalMode) => ({
   expense: modalMode === "edit" ? "Edit Expense" : "Add Expense",
   income: modalMode === "edit" ? "Edit Income" : "Add Income",
   delete: "Confirm Delete",
+  wallet: "Add Wallet"
 });
 
 const Modal = () => {

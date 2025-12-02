@@ -12,6 +12,7 @@ import { CategoryOptions, WalletOptions } from "@/components/FormOptions";
 const ExpenseForm = () => {
   const addExpenses = useExpense((state) => state.addExpense);
   const updateExpense = useExpense((state) => state.updateExpense);
+  const openModal = useModal((state) => state.openModal);
   const closeModal = useModal((state) => state.closeModal);
   const modalMode = useModal((state) => state.mode);
   const item = useModal((state) => state.item);
@@ -141,6 +142,11 @@ const ExpenseForm = () => {
                 errors.wallet ? "border-red-500 border-2" : "border-neutral-300"
               }
               `}
+              onChange={(e) => {
+                if (e.target.value === "add_wallet") {
+                  openModal("wallet", "wallet");
+                }
+              }}
             >
               <WalletOptions />
             </select>

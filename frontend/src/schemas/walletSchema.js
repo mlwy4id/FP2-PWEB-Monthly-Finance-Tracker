@@ -1,7 +1,6 @@
 import { z } from "zod";
 
 export const walletSchema = z.object({
-  id: z.string(),
   name: z.string().min(1, "Provide wallet name"),
   amount: z
     .string()

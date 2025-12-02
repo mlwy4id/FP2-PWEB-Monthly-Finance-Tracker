@@ -3,6 +3,7 @@ import useWallet from "@/store/useWalletStore";
 
 export const WalletOptions = () => {
   const wallets = useWallet((state) => state.wallets);
+
   return (
     <>
       <option value="">Select wallet</option>
@@ -11,12 +12,16 @@ export const WalletOptions = () => {
           {wallet.name}
         </option>
       ))}
+      <option className="text-blue-500" value="add_wallet">
+        + Add New Wallet
+      </option>
     </>
   );
 };
 
 export const CategoryOptions = () => {
   const categories = useCategory((state) => state.categories);
+
   return (
     <>
       <option value="">Select category</option>
@@ -25,6 +30,9 @@ export const CategoryOptions = () => {
           {category.name}
         </option>
       ))}
+      <option className="text-blue-500" value="add_category">
+        + Add New Category
+      </option>
     </>
   );
 };
