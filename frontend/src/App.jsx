@@ -19,8 +19,8 @@ import { mockIncomes } from "./mocks/incomeMock";
 import { mockExpenses } from "./mocks/expenseMock";
 import useCategory from "./store/useCategoryStore";
 import useWallet from "./store/useWalletStore";
-import { mockCategories } from "./mocks/categoryMock";
-import { mockWallets } from "./mocks/walletMock";
+import { defaultCategories } from "./data/defaultCategories";
+import { defaultWallets } from "./data/defaultWallets";
 
 const App = () => {
   const modalName = useModal((state) => state.name);
@@ -32,8 +32,8 @@ const App = () => {
   useEffect(() => {
     setIncomes(mockIncomes);
     setExpenses(mockExpenses);
-    setCategories(mockCategories);
-    setWallets(mockWallets);
+    setCategories(defaultCategories);
+    setWallets(defaultWallets)
   }, []);
 
   return (
