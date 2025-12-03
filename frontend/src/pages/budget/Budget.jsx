@@ -1,7 +1,6 @@
 import PageLayout from "@/components/layouts/PageLayout";
 import BudgetStatus from "./components/BudgetStatus";
-import ExpenseByCategory from "./components/ExpenseByCategory";
-import IncomeByWallet from "./components/IncomeByWallet";
+import BudgetByCategory from "./components/BudgetByCategory";
 
 const Budget = () => {
   return (
@@ -10,8 +9,7 @@ const Budget = () => {
       subtitle="Set and track your spending limits"
     >
       <BudgetStatus/>
-      <ExpenseByCategory/>
-      <IncomeByWallet/>
+      <BudgetByCategory/>
     </PageLayout>
   );
 };

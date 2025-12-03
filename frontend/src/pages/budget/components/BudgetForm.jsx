@@ -34,7 +34,7 @@ const BudgetForm = () => {
     if (modalMode === "edit" && item) {
       reset({
         category: item.category,
-        amount: item.amount,
+        amount: moneyFormat(item.amount),
       });
     } else if (modalMode === "add") {
       reset({
