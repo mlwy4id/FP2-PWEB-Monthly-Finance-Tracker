@@ -34,6 +34,7 @@ const IncomeForm = () => {
     },
   });
 
+  console.log(isValid, errors);
   useEffect(() => {
     if (modalMode === "edit" && item) {
       reset({
@@ -111,7 +112,10 @@ const IncomeForm = () => {
             id="amount"
             {...register("amount")}
             onChange={(e) => {
-              setValue("amount", moneyFormat(e.target.value));
+              setValue("amount", moneyFormat(e.target.value), {
+                shouldDirty: true,
+                shouldValidate: true
+              });
             }}
             type="text"
             inputMode="numeric"
@@ -142,8 +146,10 @@ const IncomeForm = () => {
               }
               `}
               onChange={(e) => {
+                register("wallet").onChange(e);
                 if (e.target.value === "add_wallet") {
                   openModal("wallet", "wallet");
+                  e.target.value = ""
                 }
               }}
             >
@@ -156,7 +162,7 @@ const IncomeForm = () => {
         </div>
 
         <Button
-          disabled={!isValid}
+         disabled={!isValid}
           className={`mt-2 bg-blue-600 hover:bg-blue-700`}
         >
           {modalMode === "add" ? "Add Income" : "Save Change"}

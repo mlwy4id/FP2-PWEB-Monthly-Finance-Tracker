@@ -112,7 +112,10 @@ const ExpenseForm = () => {
             id="amount"
             {...register("amount")}
             onChange={(e) => {
-              setValue("amount", moneyFormat(e.target.value));
+              setValue("amount", moneyFormat(e.target.value), {
+                shouldValidate: true,
+                shouldDirty: true
+              });
             }}
             type="text"
             inputMode="numeric"
@@ -143,6 +146,7 @@ const ExpenseForm = () => {
               }
               `}
               onChange={(e) => {
+                register("wallet").onChange(e);
                 if (e.target.value === "add_wallet") {
                   openModal("wallet", "wallet");
                 }
@@ -171,6 +175,7 @@ const ExpenseForm = () => {
               }
             `}
               onChange={(e) => {
+                register("wallet").onChange(e);
                 if (e.target.value === "add_category") {
                   openModal("category", "category");
                 }
@@ -185,7 +190,7 @@ const ExpenseForm = () => {
         </div>
         
         <Button
-          disabled={!isValid}
+         disabled={!isValid}
           className={`mt-2 bg-blue-600 hover:bg-blue-700`}
         >
           {modalMode === "add" ? "Add Expense" : "Save Change"}
