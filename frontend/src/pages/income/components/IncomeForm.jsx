@@ -34,7 +34,6 @@ const IncomeForm = () => {
     },
   });
 
-  console.log(isValid, errors);
   useEffect(() => {
     if (modalMode === "edit" && item) {
       reset({

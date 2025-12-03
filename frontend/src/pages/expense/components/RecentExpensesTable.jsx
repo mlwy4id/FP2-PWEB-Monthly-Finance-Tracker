@@ -1,6 +1,7 @@
 import { DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import useExpense from "@/store/useExpenseStore";
 import useModal from "@/store/useModalStore";
+import useWallet from "@/store/useWalletStore";
 import { dateFormat } from "@/utils/dateFormat";
 import { moneyFormat } from "@/utils/moneyFormat";
 import {
@@ -11,8 +12,14 @@ import {
 import { BsThreeDotsVertical } from "react-icons/bs";
 
 const RecentExpensesTable = () => {
+  const wallets = useWallet((state) => state.wallets)
   const expense = useExpense((state) => state.expenses);
   const openModal = useModal((state) => state.openModal);
+
+  const getCategoryName = (id) => {
+    const category = categories.find((c) => c.id === id);
+    return category.name;
+  }
 
   return (
     <table className="w-full">
@@ -33,7 +40,7 @@ const RecentExpensesTable = () => {
             <td className="py-3 px-4">{expense.title}</td>
             <td className="py-3 px-4">
               <span className="bg-slate-100 text-slate-700 px-2 py-1">
-                {expense.category}
+                {getCategoryName(expense.category)}
               </span>
             </td>
             <td className="py-3 px-4">{dateFormat(expense.date)}</td>

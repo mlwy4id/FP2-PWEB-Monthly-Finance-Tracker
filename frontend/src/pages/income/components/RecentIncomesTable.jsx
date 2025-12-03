@@ -9,10 +9,17 @@ import {
 } from "@radix-ui/react-dropdown-menu";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import useIncome from "@/store/useIncomeStore";
+import useWallet from "@/store/useWalletStore";
 
 const RecentIncomesTable = () => {
+  const wallets = useWallet((state) => state.wallets);
   const incomes = useIncome((state) => state.incomes);
   const openModal = useModal((state) => state.openModal);
+
+  const getWalletName = (id) => {
+    const wallet = wallets.find((w) => w.id === id);
+    return wallet.name;
+  };
 
   return (
     <table className="w-full">
@@ -33,7 +40,7 @@ const RecentIncomesTable = () => {
             <td className="py-3 px-4">{income.title}</td>
             <td className="py-3 px-4">
               <span className="bg-slate-100 text-slate-700 px-2 py-1">
-                {income.wallet}
+                {getWalletName(income.wallet)}
               </span>
             </td>
             <td className="py-3 px-4">{dateFormat(income.date)}</td>
