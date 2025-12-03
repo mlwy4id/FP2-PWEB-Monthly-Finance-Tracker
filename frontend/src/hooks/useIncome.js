@@ -21,3 +21,29 @@ export const useCreateIncome = () => {
     }
   });
 };
+
+export const usePatchIncome = () => {
+  const qc = useQueryClient();
+  const updatedIncome = useIncome((state) => state.updatedIncome);
+
+  return useMutation({
+    mutationFn: (data) => incomeApi.update(data),
+    onSuccess: (data) => {
+        qc.invalidateQueries(["incomes"]);
+        updatedIncome(data.id, data);
+    }
+  });
+};
+
+export const useDeleteIncome = () => {
+  const qc = useQueryClient();
+  const deleteIncome = useIncome((state) => state.deleteIncome);
+
+  return useMutation({
+    mutationFn: (data) => incomeApi.update(data),
+    onSuccess: (data) => {
+        qc.invalidateQueries(["incomes"]);
+        deleteIncome(data.id, data);
+    }
+  });
+};

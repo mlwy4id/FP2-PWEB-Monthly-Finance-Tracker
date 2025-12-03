@@ -25,6 +25,7 @@ import { useGetIncome } from "./hooks/useIncome";
 
 const App = () => {
   const { data: incomes, isLoading } = useGetIncome();
+  
   const modalName = useModal((state) => state.name);
   const setIncomes = useIncome((state) => state.setIncomes);
   const setExpenses = useExpense((state) => state.setExpenses);
@@ -35,7 +36,8 @@ const App = () => {
     if(!isLoading && incomes) {
       setIncomes(incomes);
     }
-    // setExpenses(mockExpenses);
+    setExpenses(mockExpenses);
+    setIncomes(mockIncomes);
     setCategories(defaultCategories);
     setWallets(defaultWallets);
   }, [incomes, isLoading]);

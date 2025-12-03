@@ -2,18 +2,18 @@ import { useForm } from "react-hook-form";
 import { Input } from "../../../components/ui/input";
 import { Button } from "../../../components/ui/button";
 import { zodResolver } from "@hookform/resolvers/zod";
-import useIncome from "@/store/useIncomeStore";
 import useModal from "@/store/useModalStore";
 import { incomeSchema } from "@/schemas/incomeSchema";
 import { moneyFormat } from "@/utils/moneyFormat";
 import { useEffect } from "react";
 import { WalletOptions } from "@/components/FormOptions";
-import { useCreateIncome } from "@/hooks/useIncome";
+import { useCreateIncome, usePatchIncome } from "@/hooks/useIncome";
+import useIncome from "@/store/useIncomeStore";
 
 const IncomeForm = () => {
   const { mutate: createIncome } = useCreateIncome();
-  const addIncome = useIncome((state) => state.addIncome);
   const updateIncome = useIncome((state) => state.updateIncome);
+
   const openModal = useModal((state) => state.openModal);
   const closeModal = useModal((state) => state.closeModal);
   const modalMode = useModal((state) => state.mode);
@@ -64,7 +64,7 @@ const IncomeForm = () => {
       };
       createIncome(dataWithId);
     } else if (modalMode === "edit" && item) {
-      updateIncome(item.id, data);
+      updateIncome(data.id, data);
     }
 
     closeModal();
