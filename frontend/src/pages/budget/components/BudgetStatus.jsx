@@ -16,6 +16,14 @@ const BudgetStatus = () => {
   const thisMonthExpense = monthlyRecap(expenses);
   const openModal = useModal((state) => state.openModal);
 
+  const budgets = useBudget((state) => state.budgets);
+  const budgetTotal = budgets.reduce((acc, item) => {
+    acc += item.amount;
+    return acc;
+  }, 0);
+
+  const balance = budgetTotal - thisMonthExpense;
+
   return (
     <Card>
       <CardHeader className={`flex justify-between`}>
@@ -36,14 +44,12 @@ const BudgetStatus = () => {
         <div className="flex flex-col gap-5">
           <div className="flex flex-col gap-1">
             <h1 className="text-4xl font-semibold">
-              Rp{moneyFormat(0)} / Rp
-              {moneyFormat(0)}
+              Rp{moneyFormat(thisMonthExpense)} / Rp
+              {moneyFormat(budgetTotal)}
             </h1>
             <p className="text-gray-500">
-              Remaining:{" "}
-              {12 < 0
-                ? `-Rp${moneyFormat(0)}`
-                : `Rp${moneyFormat(0)}`}
+              Remaining:
+              {balance < 0 ? ` -Rp${moneyFormat(balance)}` : ` Rp${moneyFormat(balance)}`}
             </p>
           </div>
           <ProgressBar />
