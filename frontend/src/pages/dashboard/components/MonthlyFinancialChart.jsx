@@ -1,6 +1,6 @@
 import React from 'react';
 import { Line } from 'react-chartjs-2'; 
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 import {
   Chart as ChartJS,
@@ -23,7 +23,6 @@ ChartJS.register(
   Tooltip,
   Legend
 );
-// ---------------------------------------------
 
 const MonthlyFinancialChart = () => {
   const [labels, expenseAmounts, incomeAmounts] = useBalanceLastNMonth(5);
@@ -73,19 +72,6 @@ const MonthlyFinancialChart = () => {
           boxWidth: 8, 
         },
       },
-      title: {
-        display: true,
-        text: 'Monthly Financial Overview',
-        font: {
-          size: 18,
-          family: 'Inter, sans-serif',
-          weight: '600',
-        },
-        padding: {
-          top: 10,
-          bottom: 20,
-        },
-      },
       tooltip: {
         callbacks: {
           label: function (context) {
@@ -97,7 +83,7 @@ const MonthlyFinancialChart = () => {
               label += new Intl.NumberFormat("id-ID", {
                 style: "currency",
                 currency: "IDR",
-                minimumFractionDigits: 0, // Tidak ada desimal
+                minimumFractionDigits: 0, 
               }).format(context.parsed.y);
             }
             return label;
@@ -108,49 +94,51 @@ const MonthlyFinancialChart = () => {
     scales: {
       x: {
         grid: {
-          display: true, // Menampilkan garis grid X
+          display: true, 
           drawOnChartArea: true,
           drawTicks: false,
-          color: 'rgba(200, 200, 200, 0.4)', // Warna grid
+          color: 'rgba(200, 200, 200, 0.4)', 
         },
         ticks: {
           font: {
             family: 'Inter, sans-serif',
             size: 12,
           },
-          color: '#4B5563', // Warna label bulan
+          color: '#4B5563', 
         },
       },
       y: {
         beginAtZero: true,
         grid: {
-          display: true, // Menampilkan garis grid Y
+          display: true, 
           drawOnChartArea: true,
           drawTicks: false,
           color: 'rgba(200, 200, 200, 0.4)',
         },
         ticks: {
-          // Callback untuk memformat label sumbu Y (skala)
           callback: function (value) {
             return new Intl.NumberFormat("id-ID", {
               style: "currency",
               currency: "IDR",
               minimumFractionDigits: 0,
-            }).format(value); // Tidak perlu dibagi juta di sini
+            }).format(value); 
           },
           font: {
             family: 'Inter, sans-serif',
             size: 12,
           },
-          color: '#4B5563', // Warna label nilai
+          color: '#4B5563', 
         },
       },
     },
   };
 
   return (
-    <Card className="w-full max-w-4xl mx-auto my-8 p-4"> {/* Menambahkan padding ke Card */}
-      <CardContent className="h-96"> {/* Atur tinggi grafik di sini */}
+    <Card className="w-full"> 
+    <CardHeader>
+      <CardTitle className={`text-xl font-semibold`}>Income vs Expense Trend</CardTitle>
+    </CardHeader>
+      <CardContent className="h-96"> 
         <Line data={data} options={options} />
       </CardContent>
     </Card>
