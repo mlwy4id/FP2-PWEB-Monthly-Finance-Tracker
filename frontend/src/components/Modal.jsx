@@ -7,6 +7,7 @@ import DeleteDialog from "./DeleteDialog";
 import IncomeForm from "@/pages/income/components/IncomeForm";
 import WalletForm from "./WalletForm";
 import CategoryForm from "./CategoryForm";
+import BudgetForm from "@/pages/budget/components/BudgetForm";
 
 const MODAL_COMPONENTS = {
   expense: ExpenseForm,
@@ -14,6 +15,7 @@ const MODAL_COMPONENTS = {
   delete: DeleteDialog,
   wallet: WalletForm,
   category: CategoryForm,
+  budget: BudgetForm
 };
 
 const MODAL_TITLE = (modalMode) => ({
@@ -22,6 +24,7 @@ const MODAL_TITLE = (modalMode) => ({
   delete: "Confirm Delete",
   wallet: "Add Wallet",
   category: "Add Category",
+  budget: "Add Budget"
 });
 
 const Modal = () => {

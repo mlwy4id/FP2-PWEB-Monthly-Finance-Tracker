@@ -1,7 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { useExpenseByCategory } from "@/hooks/useExpenseByCategory";
 import { useIncomeByWallet } from "@/hooks/useIncomeByWallet";
-import useCategory from "@/store/useCategoryStore";
 import useWallet from "@/store/useWalletStore";
 import { moneyFormat } from "@/utils/moneyFormat";
 
