@@ -24,7 +24,7 @@ import { defaultWallets } from "./data/defaultWallets";
 import { useGetIncome } from "./hooks/useIncome";
 
 const App = () => {
-  const { data: incomes, isLoading } = useGetIncome();
+  // const { data: incomes, isLoading } = useGetIncome();
   
   const modalName = useModal((state) => state.name);
   const setIncomes = useIncome((state) => state.setIncomes);
@@ -33,14 +33,14 @@ const App = () => {
   const setWallets = useWallet((state) => state.setWallets);
 
   useEffect(() => {
-    if(!isLoading && incomes) {
-      setIncomes(incomes);
-    }
+    // if(!isLoading && incomes) {
+    //   setIncomes(incomes);
+    // }
     setExpenses(mockExpenses);
     setIncomes(mockIncomes);
     setCategories(defaultCategories);
     setWallets(defaultWallets);
-  }, [incomes, isLoading]);
+  }, []);
 
   return (
     <div className="flex h-screen">
@@ -70,10 +70,10 @@ const App = () => {
       >
         <Routes>
           <Route path="/" element={<Dashboard />} />
-          <Route path="/income" element={<Income />} />
           <Route path="/income/history" element={<IncomeHistory />} />
-          <Route path="/expense" element={<Expense />} />
+          <Route path="/income" element={<Income />} />
           <Route path="/expense/history" element={<ExpenseHistory />} />
+          <Route path="/expense" element={<Expense />} />
           <Route path="/budget" element={<Budget />} />
         </Routes>
 

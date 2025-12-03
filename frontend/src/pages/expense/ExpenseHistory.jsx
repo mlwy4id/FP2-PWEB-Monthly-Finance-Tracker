@@ -3,7 +3,7 @@ import ExpenseHistoryCard from "./components/ExpenseHistoryCard";
 
 const ExpenseHistory = () => {
   return(
-    <PageLayout title={`Expense History`}>
+    <PageLayout title={`Expenses History`}>
       <ExpenseHistoryCard/>
     </PageLayout>
   )

@@ -1,7 +1,7 @@
 import axiosClient from "./axiosClient";
 
 const incomeApi = {
-  getAll: () => axiosClient.get("/api/income").then((res) => res.data),
+  getAll: () => axiosClient.get("/api/income").then((res) => res.data).catch((err) => console.log(err)),
   create: (newIncome) =>
     axiosClient.post("/api/income", newIncome).then((res) => res.data),
   update: (updatedIncome) =>
