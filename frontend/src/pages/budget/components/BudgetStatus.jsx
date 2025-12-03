@@ -23,6 +23,7 @@ const BudgetStatus = () => {
   }, 0);
 
   const balance = budgetTotal - thisMonthExpense;
+  const percentage = (thisMonthExpense / budgetTotal) * 100;
 
   return (
     <Card>
@@ -42,17 +43,25 @@ const BudgetStatus = () => {
       </CardHeader>
       <CardContent>
         <div className="flex flex-col gap-5">
-          <div className="flex flex-col gap-1">
+          <div className="flex flex-col gap-2 mb-2">
             <h1 className="text-4xl font-semibold">
               Rp{moneyFormat(thisMonthExpense)} / Rp
               {moneyFormat(budgetTotal)}
             </h1>
             <p className="text-gray-500">
               Remaining:
-              {balance < 0 ? ` -Rp${moneyFormat(balance)}` : ` Rp${moneyFormat(balance)}`}
+              {balance < 0
+                ? ` -Rp${moneyFormat(balance)}`
+                : ` Rp${moneyFormat(balance)}`}
             </p>
           </div>
-          <ProgressBar />
+          <ProgressBar dividend={thisMonthExpense} divisor={budgetTotal} />
+
+          <p className={`mt-2 ${percentage < 90 ? `text-gray-500` : `text-red-600`}`}>
+            {percentage < 100
+              ? `${percentage}% of total budget used`
+              : `You excess the budget limit!`}
+          </p>
         </div>
       </CardContent>
     </Card>

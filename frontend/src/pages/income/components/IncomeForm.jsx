@@ -8,8 +8,10 @@ import { incomeSchema } from "@/schemas/incomeSchema";
 import { moneyFormat } from "@/utils/moneyFormat";
 import { useEffect } from "react";
 import { WalletOptions } from "@/components/FormOptions";
+import { useCreateIncome } from "@/hooks/useIncome";
 
 const IncomeForm = () => {
+  const { mutate: createIncome } = useCreateIncome();
   const addIncome = useIncome((state) => state.addIncome);
   const updateIncome = useIncome((state) => state.updateIncome);
   const openModal = useModal((state) => state.openModal);
@@ -60,7 +62,7 @@ const IncomeForm = () => {
         id: crypto.randomUUID(),
         ...data,
       };
-      addIncome(dataWithId);
+      createIncome(dataWithId);
     } else if (modalMode === "edit" && item) {
       updateIncome(item.id, data);
     }
@@ -113,7 +115,7 @@ const IncomeForm = () => {
             onChange={(e) => {
               setValue("amount", moneyFormat(e.target.value), {
                 shouldDirty: true,
-                shouldValidate: true
+                shouldValidate: true,
               });
             }}
             type="text"
@@ -148,7 +150,7 @@ const IncomeForm = () => {
                 register("wallet").onChange(e);
                 if (e.target.value === "add_wallet") {
                   openModal("wallet", "wallet");
-                  e.target.value = ""
+                  e.target.value = "";
                 }
               }}
             >
@@ -161,7 +163,7 @@ const IncomeForm = () => {
         </div>
 
         <Button
-         disabled={!isValid}
+          disabled={!isValid}
           className={`mt-2 bg-blue-600 hover:bg-blue-700`}
         >
           {modalMode === "add" ? "Add Income" : "Save Change"}

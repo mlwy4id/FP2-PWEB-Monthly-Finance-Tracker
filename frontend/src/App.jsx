@@ -21,8 +21,10 @@ import useCategory from "./store/useCategoryStore";
 import useWallet from "./store/useWalletStore";
 import { defaultCategories } from "./data/defaultCategories";
 import { defaultWallets } from "./data/defaultWallets";
+import { useGetIncome } from "./hooks/useIncome";
 
 const App = () => {
+  const { data: incomes, isLoading } = useGetIncome();
   const modalName = useModal((state) => state.name);
   const setIncomes = useIncome((state) => state.setIncomes);
   const setExpenses = useExpense((state) => state.setExpenses);
@@ -30,11 +32,13 @@ const App = () => {
   const setWallets = useWallet((state) => state.setWallets);
 
   useEffect(() => {
-    setIncomes(mockIncomes);
-    setExpenses(mockExpenses);
+    if(!isLoading && incomes) {
+      setIncomes(incomes);
+    }
+    // setExpenses(mockExpenses);
     setCategories(defaultCategories);
-    setWallets(defaultWallets)
-  }, []);
+    setWallets(defaultWallets);
+  }, [incomes, isLoading]);
 
   return (
     <div className="flex h-screen">
