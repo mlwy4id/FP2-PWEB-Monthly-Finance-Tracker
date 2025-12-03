@@ -16,54 +16,58 @@ const BudgetByCategory = () => {
   const budgets = useBudget((state) => state.budgets);
   const categories = useCategory((state) => state.categories);
   const expenseByCategory = useExpenseByCategory();
+  const openModal = useModal((state) => state.openModal);
 
   const getCategoryName = (id) => {
     const category = categories.find((c) => c.id === id);
     return category.name;
   };
 
-  const openModal = useModal((state) => state.openModal);
-
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Budget by Category</CardTitle>
+        <CardTitle className="text-xl md:text-lg sm:text-base">
+          Budget by Category
+        </CardTitle>
       </CardHeader>
-      <CardContent className={`overflow-x-auto pb-4`}>
-        <div className="flex gap-4">
+
+      <CardContent className="overflow-x-auto">
+        <div className="flex gap-4 pb-2">
           {budgets.map((b) => (
             <div
               key={b.id}
               className="
-              relative
-            flex flex-col justify-center p-4 
-            bg-slate-100 rounded-lg shadow-sm min-w-52 min-h-32"
+                relative
+                flex flex-col justify-center
+                p-4
+                bg-slate-100
+                rounded-lg shadow-sm
+                min-w-[200px]
+                sm:min-w-full
+              "
             >
               <DropdownMenu>
                 <DropdownMenuTrigger>
-                  <BsThreeDotsVertical className="absolute right-4 top-4"/>
+                  <BsThreeDotsVertical className="absolute right-4 top-4 cursor-pointer"/>
                 </DropdownMenuTrigger>
+
                 <DropdownMenuContent
                   className="w-40 rounded-lg border shadow-sm bg-white p-3"
                   align="end"
                   side="left"
                 >
-                  <DropdownMenuItem
-                    onClick={() => openModal("budget", "edit", b)}
-                  >
+                  <DropdownMenuItem onClick={() => openModal("budget", "edit", b)}>
                     Edit
                   </DropdownMenuItem>
-                  <DropdownMenuItem
-                    onClick={() => openModal("delete", "budget", b)}
-                  >
+                  <DropdownMenuItem onClick={() => openModal("delete", "budget", b)}>
                     Delete
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
 
-              <p className="text-gray-600">{getCategoryName(b.category)}</p>
-              <h1 className="text-2xl font-medium">
-                Rp{moneyFormat(expenseByCategory[b.category])} / Rp
+              <p className="text-gray-600 text-sm">{getCategoryName(b.category)}</p>
+              <h1 className="text-2xl md:text-xl sm:text-lg font-medium">
+                Rp{moneyFormat(expenseByCategory[b.category] || 0)} / Rp
                 {moneyFormat(b.amount)}
               </h1>
             </div>

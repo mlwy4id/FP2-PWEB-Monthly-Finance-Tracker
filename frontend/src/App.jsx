@@ -64,9 +64,12 @@ const App = () => {
       </Sidebar>
 
       <div
-        className={`w-full flex-1 min-h-screen bg-slate-50 ${
+        className={`
+          w-full flex-1 min-h-screen bg-slate-50 ${
           modalName === "" ? "overflow-y-auto" : "overflow-hidden"
-        }`}
+        }
+          pt-10 md:pt-0
+        `}
       >
         <Routes>
           <Route path="/" element={<Dashboard />} />

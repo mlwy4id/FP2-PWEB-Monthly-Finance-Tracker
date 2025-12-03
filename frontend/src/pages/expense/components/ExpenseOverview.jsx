@@ -12,7 +12,7 @@ const ExpenseOverview = () => {
   const dailyExpense = dailyRecap(expenses);
 
   return (
-    <div className="flex justify-between items-center flex-wrap">
+    <div className="grid gap-4 lg:grid-cols-3 md:grid-cols-1">
       <OverviewCard
         title="Monthly Expense"
         logo={<FaCalendar className="text-rose-700" size={18} />}

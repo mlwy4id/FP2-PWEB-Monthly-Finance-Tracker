@@ -71,7 +71,7 @@ const ExpenseHistoryCard = () => {
         </div>
       </CardHeader>
 
-      <CardContent>
+      <CardContent className={`overflow-x-auto`}>
         <table className="w-full">
           <thead>
             <tr className="border-b">

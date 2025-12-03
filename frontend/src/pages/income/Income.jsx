@@ -8,7 +8,7 @@ import useModal from "@/store/useModalStore";
 
 const Income = () => {
   const openModal = useModal((state) => state.openModal);
-  
+
   return (
     <PageLayout title="Income" subtitle="Track and manage your income sources">
       <IncomeOverview />
@@ -17,7 +17,9 @@ const Income = () => {
         title="Incomes"
         button={
           <Button
-            className={`bg-green-600 hover:bg-green-700`}
+            className={`
+              bg-green-600 hover:bg-green-700
+            `}
             size={`lg`}
             onClick={() => openModal("income", "add")}
           >
