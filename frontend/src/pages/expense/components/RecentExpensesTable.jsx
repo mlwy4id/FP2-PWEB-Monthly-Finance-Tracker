@@ -1,4 +1,5 @@
 import { DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import useCategory from "@/store/useCategoryStore";
 import useExpense from "@/store/useExpenseStore";
 import useModal from "@/store/useModalStore";
 import useWallet from "@/store/useWalletStore";
@@ -12,7 +13,7 @@ import {
 import { BsThreeDotsVertical } from "react-icons/bs";
 
 const RecentExpensesTable = () => {
-  const wallets = useWallet((state) => state.wallets)
+  const categories = useCategory((state) => state.categories);
   const expense = useExpense((state) => state.expenses);
   const openModal = useModal((state) => state.openModal);
 
