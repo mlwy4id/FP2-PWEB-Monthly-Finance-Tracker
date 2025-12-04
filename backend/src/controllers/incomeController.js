@@ -3,12 +3,11 @@ const IncomeModel = require('../models/incomeModel');
 const readIncome = async (req, res) =>{
     try{
         const Income = await IncomeModel.getAllIncomes();
-        res.status(200).json(Income);
+        return res.status(200).json(Income);
     } catch (err) {
         console.error(err);
-        res.status(500).json({ error: 'An internal error has occured'});
+        return res.status(500).json({ error: 'An internal error has occured'});
     }
-    return;
 };
 
 const createIncome = async (req, res) => {
