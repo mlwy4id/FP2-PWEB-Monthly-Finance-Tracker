@@ -8,8 +8,6 @@ const generateToken = (email) => {
     });
 };
 
-// @desc    Register a new user
-// @route   POST /api/users/register
 const createUser = async (req, res) => {
     const { email, username, password } = req.body;
 
@@ -42,8 +40,6 @@ const createUser = async (req, res) => {
     }
 };
 
-// @desc    Authenticate a user
-// @route   POST /api/users/login
 const loginUser = async (req, res) => {
     const { email, password } = req.body;
 
@@ -69,18 +65,13 @@ const loginUser = async (req, res) => {
     }
 };
 
-// @desc    Get current user data (Protected)
-// @route   GET /api/users/me
 const getUser = async (req, res) => {
-    // req.user is set by the authMiddleware
     res.status(200).json(req.user);
 };
 
-// @desc    Update user profile (Username only for now)
-// @route   PUT /api/users/me
 const updateUser = async (req, res) => {
     const { username } = req.body;
-    const email = req.user.email; // Identify user from Token, not body
+    const email = req.user.email;
 
     try {
         const updatedUser = await userModel.updateUser(email, username);
@@ -99,10 +90,8 @@ const updateUser = async (req, res) => {
     }
 };
 
-// @desc    Delete user account
-// @route   DELETE /api/users/me
 const deleteUser = async (req, res) => {
-    const email = req.user.email; // Identify user from Token
+    const email = req.user.email;
 
     try {
         const deletedUser = await userModel.deleteUser(email);

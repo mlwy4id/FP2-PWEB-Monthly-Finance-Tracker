@@ -4,7 +4,6 @@ async function getUser(email) {
   const query = 'SELECT * FROM users WHERE email = $1';
   const values = [email];
   const { rows } = await db.query(query, values);
-  // FIX: Return rows[0] so we get an object (or undefined), not an array
   return rows[0]; 
 }
 

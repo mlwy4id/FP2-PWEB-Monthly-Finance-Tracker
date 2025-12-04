@@ -69,8 +69,6 @@ const initDb = async () => {
   } catch (error) {
     console.error('Database initialization failed:', error);
   } finally {
-    // We cannot close the pool easily because we exported a wrapper function,
-    // so we just exit the process to stop the script from hanging.
     process.exit();
   }
 };
