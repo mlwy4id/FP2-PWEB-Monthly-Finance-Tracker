@@ -8,10 +8,12 @@ import { expenseSchema } from "@/schemas/expenseSchema";
 import { moneyFormat } from "@/utils/moneyFormat";
 import { useEffect } from "react";
 import { CategoryOptions, WalletOptions } from "@/components/FormOptions";
+import { useCreateExpense, usePatchExpense } from "@/hooks/useExpense";
 
 const ExpenseForm = () => {
-  const addExpenses = useExpense((state) => state.addExpense);
-  const updateExpense = useExpense((state) => state.updateExpense);
+  const { mutate: createExpense } = useCreateExpense();
+  const { mutate: updateExpense } = usePatchExpense();
+
   const openModal = useModal((state) => state.openModal);
   const closeModal = useModal((state) => state.closeModal);
   const modalMode = useModal((state) => state.mode);
@@ -61,9 +63,13 @@ const ExpenseForm = () => {
         id: crypto.randomUUID(),
         ...data,
       };
-      addExpenses(dataWithId);
+      createExpense(dataWithId);
     } else if (modalMode === "edit" && item) {
-      updateExpense(item.id, data);
+      const dataWithId = {
+        id: item.id,
+        ...data,
+      };
+      updateExpense(dataWithId);
     }
 
     closeModal();
@@ -114,7 +120,7 @@ const ExpenseForm = () => {
             onChange={(e) => {
               setValue("amount", moneyFormat(e.target.value), {
                 shouldValidate: true,
-                shouldDirty: true
+                shouldDirty: true,
               });
             }}
             type="text"
@@ -188,9 +194,9 @@ const ExpenseForm = () => {
             )}
           </div>
         </div>
-        
+
         <Button
-         disabled={!isValid}
+          disabled={!isValid}
           className={`mt-2 bg-blue-600 hover:bg-blue-700`}
         >
           {modalMode === "add" ? "Add Expense" : "Save Change"}

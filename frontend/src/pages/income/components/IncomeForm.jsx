@@ -11,9 +11,9 @@ import { useCreateIncome, usePatchIncome } from "@/hooks/useIncome";
 import useIncome from "@/store/useIncomeStore";
 
 const IncomeForm = () => {
-  // const { mutate: createIncome } = useCreateIncome();
-  const updateIncome = useIncome((state) => state.updateIncome);
-  const addIncome = useIncome((state) => state.addIncome);
+  const { mutate: createIncome } = useCreateIncome();
+  const { mutate: updateIncome } = usePatchIncome();
+
   const openModal = useModal((state) => state.openModal);
   const closeModal = useModal((state) => state.closeModal);
   const modalMode = useModal((state) => state.mode);
@@ -60,9 +60,13 @@ const IncomeForm = () => {
         id: crypto.randomUUID(),
         ...data,
       };
-      addIncome(dataWithId);
+      createIncome(dataWithId);
     } else if (modalMode === "edit" && item) {
-      updateIncome(item.id, data);
+      const dataWithId = {
+        id: item.id,
+        ...data,
+      };
+      updateIncome(dataWithId);
     }
 
     closeModal();

@@ -16,9 +16,9 @@ export const useCreateIncome = () => {
   return useMutation({
     mutationFn: (data) => incomeApi.create(data),
     onSuccess: (data) => {
-        qc.invalidateQueries(["incomes"]);
-        addIncomes(data);
-    }
+      qc.invalidateQueries(["incomes"]);
+      addIncomes(data);
+    },
   });
 };
 
@@ -28,10 +28,10 @@ export const usePatchIncome = () => {
 
   return useMutation({
     mutationFn: (data) => incomeApi.update(data),
-    onSuccess: (data) => {
-        qc.invalidateQueries(["incomes"]);
-        updatedIncome(data.id, data);
-    }
+    onSuccess: (res, variables) => {
+      qc.invalidateQueries(["incomes"]);
+      updatedIncome(variables.id, res);
+    },
   });
 };
 
@@ -40,10 +40,10 @@ export const useDeleteIncome = () => {
   const deleteIncome = useIncome((state) => state.deleteIncome);
 
   return useMutation({
-    mutationFn: (data) => incomeApi.update(data),
-    onSuccess: (data) => {
-        qc.invalidateQueries(["incomes"]);
-        deleteIncome(data.id, data);
-    }
+    mutationFn: (id) => incomeApi.delete(id),
+    onSuccess: (_, id) => {
+      qc.invalidateQueries(["incomes"]);
+      deleteIncome(id);
+    },
   });
 };

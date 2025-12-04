@@ -3,7 +3,7 @@ import { create } from "zustand";
 const useBudget = create((set) => ({
   budgets: [],
 
-  setBudget: (budget) => set({ budget }),
+  setBudget: (budgets) => set({ budgets }),
   addBudget: (budget) =>
     set((state) => ({
       budgets: [...state.budgets, budget],

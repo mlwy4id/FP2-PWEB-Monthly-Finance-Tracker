@@ -22,28 +22,44 @@ import useWallet from "./store/useWalletStore";
 import { defaultCategories } from "./data/defaultCategories";
 import { defaultWallets } from "./data/defaultWallets";
 import { useGetIncome } from "./hooks/useIncome";
+import { useGetExpense } from "./hooks/useExpense";
+import { useGetBudget } from "./hooks/useBudget";
+import useBudget from "./store/useBudgetStore";
 
 const App = () => {
   const { data: incomes, isLoading } = useGetIncome();
+  const { data: expenses, isLoading: expenseLoading } = useGetExpense();
+  const { data: budget, isLoading: budgetLoading } = useGetBudget();
 
   const modalName = useModal((state) => state.name);
   const setIncomes = useIncome((state) => state.setIncomes);
   const setExpenses = useExpense((state) => state.setExpenses);
+  const setBudget = useBudget((state) => state.setBudget);
   const setCategories = useCategory((state) => state.setCategories);
   const setWallets = useWallet((state) => state.setWallets);
 
   useEffect(() => {
-    setExpenses(mockExpenses);
-    setIncomes(mockIncomes);
     setCategories(defaultCategories);
     setWallets(defaultWallets);
-  }, []);
+  });
 
   useEffect(() => {
     if (!isLoading && incomes) {
       setIncomes(incomes);
     }
   }, [incomes, isLoading]);
+
+  useEffect(() => {
+    if (!expenseLoading && expenses) {
+      setExpenses(expenses);
+    }
+  }, [expenseLoading, expenses]);
+
+  useEffect(() => {
+    if (!budgetLoading && budget) {
+      setBudget(budget);
+    }
+  }, [budget, budgetLoading]);
 
   return (
     <div className="flex h-screen">

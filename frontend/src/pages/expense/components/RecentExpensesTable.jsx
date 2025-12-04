@@ -78,3 +78,4 @@ const RecentExpensesTable = () => {
 };
 
 export default RecentExpensesTable;
+
