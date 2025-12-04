@@ -4,7 +4,7 @@ const controller = require('../controllers/budgetController');
 
 router.get('/', controller.readBudget);
 router.post('/', controller.createBudget);
-router.patch('/:id', controller.updateBudget)
-router.delete('/:id', controller.deleteBudget);
+router.patch('/', controller.updateBudget)
+router.delete('/', controller.deleteBudget);
 
 module.exports = router;
