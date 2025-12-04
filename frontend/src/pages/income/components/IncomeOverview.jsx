@@ -5,20 +5,32 @@ import { monthlyRecap } from "@/utils/monthlyRecap";
 import { FaDollarSign } from "react-icons/fa";
 import { SunIcon, TrophyIcon } from "lucide-react";
 import { moneyFormat } from "@/utils/moneyFormat";
+import { useEffect, useState } from "react";
 
 const IncomeOverview = () => {
+  const [biggestIncome, setBiggestIncome] = useState("-");
+
   const incomes = useIncome((state) => state.incomes);
   const monthlyIncome = monthlyRecap(incomes);
   const dailyIncome = dailyRecap(incomes);
 
   const month = new Date().getMonth();
   const year = new Date().getFullYear();
-  const filteredIncomes = incomes
-    .filter((income) => {
-      const date = new Date(income.date);
-      return date.getMonth() == month && date.getFullYear() == year;
-    })
-    .sort((a, b) => b.amount - a.amount);
+
+  useEffect(() => {
+    const filteredIncomes = incomes
+      .filter((income) => {
+        const date = new Date(income.date);
+        return date.getMonth() == month && date.getFullYear() == year;
+      })
+      .sort((a, b) => b.amount - a.amount);
+
+    if (filteredIncomes.length > 0) {
+      setBiggestIncome(filteredIncomes[0].title);
+    } else {
+      setBiggestIncome("-");
+    }
+  }, [incomes]);
 
   return (
     <div
@@ -50,7 +62,9 @@ const IncomeOverview = () => {
         title="Top Source"
         logo={<TrophyIcon className="text-emerald-600" size={18} />}
       >
-        <p className="text-3xl font-semibold text-emerald-700">{filteredIncomes[0].title}</p>
+        <p className="text-3xl font-semibold text-emerald-700">
+          {biggestIncome}
+        </p>
       </OverviewCard>
     </div>
   );

@@ -3,18 +3,19 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { zodResolver } from "@hookform/resolvers/zod";
 import useModal from "@/store/useModalStore";
-import useBudget from "@/store/useBudgetStore";
 import { budgetSchema } from "@/schemas/budgetSchema";
 import { CategoryOptions } from "@/components/FormOptions";
 import { useEffect } from "react";
 import { moneyFormat } from "@/utils/moneyFormat";
+import { useCreateBudget, usePatchBudget } from "@/hooks/useBudget";
 
 const BudgetForm = () => {
+  const {mutate: createBudget} = useCreateBudget();
+  const {mutate: updateBudget} = usePatchBudget();
+
   const closeModal = useModal((state) => state.closeModal);
   const modalMode = useModal((state) => state.mode);
   const item = useModal((state) => state.item);
-  const addBudget = useBudget((state) => state.addBudget);
-  const updateBudget = useBudget((state) => state.updateBudget);
 
   const {
     register,
@@ -50,9 +51,13 @@ const BudgetForm = () => {
         id: crypto.randomUUID(),
         ...data,
       };
-      addBudget(dataWithId);
+      createBudget(dataWithId);
     } else if (modalMode === "edit" && item) {
-      updateBudget(item.id, data);
+      const dataWithId = {
+        id: item.id,
+        ...data,
+      };
+      updateBudget(dataWithId);
     }
 
     closeModal();

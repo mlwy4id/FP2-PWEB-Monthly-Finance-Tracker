@@ -5,22 +5,35 @@ import useExpense from "@/store/useExpenseStore";
 import { dailyRecap } from "@/utils/dailyRecap";
 import { moneyFormat } from "@/utils/moneyFormat";
 import { monthlyRecap } from "@/utils/monthlyRecap";
+import { useMemo } from "react";
 import { FaShoppingBag, FaCalendar } from "react-icons/fa";
 import { FaArrowTrendUp } from "react-icons/fa6";
 
 const ExpenseOverview = () => {
   const expenses = useExpense((state) => state.expenses);
+  const categories = useCategory((state) => state.categories);
+  const expenseByCategory = useExpenseByCategory();
+
   const monthlyExpense = monthlyRecap(expenses);
   const dailyExpense = dailyRecap(expenses);
 
-  const expenseByCategory = useExpenseByCategory();
-  const sortedExpenseByCategory = Object.entries(expenseByCategory).sort((a, b) => b[1] - a[1]);
-
-  const categories = useCategory((state) => state.categories);
   const getCategoryName = (id) => {
     const category = categories.find((c) => c.id === id);
-    return category.name;
-  }
+    return category?.name || "Unknown";
+  };
+
+  const mostCategory = useMemo(() => {
+    const sortedExpenseByCategory = Object.entries(expenseByCategory).sort(
+      (a, b) => b[1] - a[1]
+    );
+
+    if (sortedExpenseByCategory.length > 0) {
+      const topCategoryId = sortedExpenseByCategory[0][0];
+      return getCategoryName(topCategoryId);
+    }
+    
+    return "-";
+  }, [expenseByCategory, categories]);
 
   return (
     <div className="grid gap-4 lg:grid-cols-3 md:grid-cols-1">
@@ -46,7 +59,9 @@ const ExpenseOverview = () => {
         title="Most Category Expense"
         logo={<FaArrowTrendUp className="text-purple-700" size={18} />}
       >
-        <p className="text-3xl font-semibold text-purple-800">{getCategoryName(sortedExpenseByCategory[0][0])}</p>
+        <p className="text-3xl font-semibold text-purple-800">
+          {mostCategory}
+        </p>
       </OverviewCard>
     </div>
   );
