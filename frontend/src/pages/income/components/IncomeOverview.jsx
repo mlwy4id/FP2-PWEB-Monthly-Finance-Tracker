@@ -4,7 +4,6 @@ import { dailyRecap } from "@/utils/dailyRecap";
 import { monthlyRecap } from "@/utils/monthlyRecap";
 import { FaDollarSign } from "react-icons/fa";
 import { SunIcon, TrophyIcon } from "lucide-react";
-import { FaArrowTrendUp } from "react-icons/fa6";
 import { moneyFormat } from "@/utils/moneyFormat";
 
 const IncomeOverview = () => {
@@ -12,12 +11,23 @@ const IncomeOverview = () => {
   const monthlyIncome = monthlyRecap(incomes);
   const dailyIncome = dailyRecap(incomes);
 
+  const month = new Date().getMonth();
+  const year = new Date().getFullYear();
+  const filteredIncomes = incomes
+    .filter((income) => {
+      const date = new Date(income.date);
+      return date.getMonth() == month && date.getFullYear() == year;
+    })
+    .sort((a, b) => b.amount - a.amount);
+
   return (
-    <div className="
+    <div
+      className="
     grid gap-4
     lg:grid-cols-3
     md:grid-cols-1
-    ">
+    "
+    >
       <OverviewCard
         title="Total Income"
         logo={<FaDollarSign className="text-green-600" size={18} />}
@@ -40,7 +50,7 @@ const IncomeOverview = () => {
         title="Top Source"
         logo={<TrophyIcon className="text-emerald-600" size={18} />}
       >
-        <p className="text-3xl font-semibold text-emerald-700">Freelance</p>
+        <p className="text-3xl font-semibold text-emerald-700">{filteredIncomes[0].title}</p>
       </OverviewCard>
     </div>
   );

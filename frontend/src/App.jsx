@@ -24,8 +24,8 @@ import { defaultWallets } from "./data/defaultWallets";
 import { useGetIncome } from "./hooks/useIncome";
 
 const App = () => {
-  // const { data: incomes, isLoading } = useGetIncome();
-  
+  const { data: incomes, isLoading } = useGetIncome();
+
   const modalName = useModal((state) => state.name);
   const setIncomes = useIncome((state) => state.setIncomes);
   const setExpenses = useExpense((state) => state.setExpenses);
@@ -33,14 +33,17 @@ const App = () => {
   const setWallets = useWallet((state) => state.setWallets);
 
   useEffect(() => {
-    // if(!isLoading && incomes) {
-    //   setIncomes(incomes);
-    // }
     setExpenses(mockExpenses);
     setIncomes(mockIncomes);
     setCategories(defaultCategories);
     setWallets(defaultWallets);
   }, []);
+
+  useEffect(() => {
+    if (!isLoading && incomes) {
+      setIncomes(incomes);
+    }
+  }, [incomes, isLoading]);
 
   return (
     <div className="flex h-screen">
@@ -66,8 +69,8 @@ const App = () => {
       <div
         className={`
           w-full flex-1 min-h-screen bg-slate-50 ${
-          modalName === "" ? "overflow-y-auto" : "overflow-hidden"
-        }
+            modalName === "" ? "overflow-y-auto" : "overflow-hidden"
+          }
           pt-10 md:pt-0
         `}
       >
