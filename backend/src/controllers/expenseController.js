@@ -51,8 +51,7 @@ const createExpense = async (req, res) => {
 };
 
 const updateExpense = async (req, res) => {
-  const id = req.params.id
-  const {title, amount, wallet, date } = req.body;
+  const {id, title, amount, wallet, date } = req.body;
 
   if(!id){
     return res.status(400).json({ error: "'id' cannot be empty"});
@@ -95,7 +94,7 @@ const updateExpense = async (req, res) => {
 }
 
 const deleteExpense = async (req, res) => {
-  const id = req.params.id;
+  const id = req.body.id;
   if(!id){
     return res.status(400).json({ error: "'id' cannot be empty"});
   }

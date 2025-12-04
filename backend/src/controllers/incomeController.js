@@ -47,8 +47,7 @@ const createIncome = async (req, res) => {
 };
 
 const updateIncome = async (req, res) => {
-  const id = req.params.id;
-  const {title, amount, wallet, date } = req.body;
+  const {id, title, amount, wallet, date } = req.body;
 
   if(!id){
     return res.status(400).json({ error: "'id' cannot be empty"});
@@ -87,7 +86,7 @@ const updateIncome = async (req, res) => {
 }
 
 const deleteIncome = async (req, res) => {
-  const id = req.params.id;
+  const id = req.body.id;
   if(!id){
     return res.status(400).json({ error: "'id' cannot be empty"});
   }

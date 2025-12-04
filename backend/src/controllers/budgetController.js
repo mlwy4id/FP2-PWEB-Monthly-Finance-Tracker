@@ -39,8 +39,7 @@ const createBudget = async (req, res) => {
 };
 
 const updateBudget = async (req, res) => {
-  const id = req.params.id;
-  const {category, amount} = req.body;
+  const {id, category, amount} = req.body;
 
   if(!id){
     return res.status(400).json({ error: "'id' cannot be empty"});
@@ -71,7 +70,7 @@ const updateBudget = async (req, res) => {
 }
 
 const deleteBudget = async (req, res) => {
-  const id = req.params.id;
+  const id = req.body.id
   if(!id){
     return res.status(400).json({ error: "'id' cannot be empty"});
   }
