@@ -1,17 +1,17 @@
-const IncomeModel = require('../models/incomeModel');
+const ExpenseModel = require('../models/expenseModel');
 
-const readIncome = async (req, res) =>{
+const readExpense = async (req, res) =>{
     try{
-        const Income = await IncomeModel.getAllIncomes();
-        return res.status(200).json(Income);
+        const Expense = await ExpenseModel.getAllExpenses();
+        return res.status(200).json(Expense);
     } catch (err) {
         console.error(err);
         return res.status(500).json({ error: 'An internal error has occured'});
     }
 };
 
-const createIncome = async (req, res) => {
-  const { id, title, amount, wallet, date } = req.body;
+const createExpense = async (req, res) => {
+  const {id, title, amount, wallet, date, category} = req.body;
 
   if(!id || !title || !amount ||!wallet ||!date){
     return res.status(400).json({ error: "Fields cannot be empty"});
@@ -37,17 +37,21 @@ const createIncome = async (req, res) => {
     return res.status(400).json({ error: "date must be a string shorter than 256"});
   }
 
+  if(typeof category !== "string" || id.length > 50){
+    return res.status(400).json({ error: "category must be a string shorter than 51"});
+  }
+
   try {
-    const newIncome = await IncomeModel.createIncome(id, title, amount, wallet, date);
-    return res.status(201).json(newIncome);
+    const newExpense = await ExpenseModel.createExpense(id, title, amount, wallet, date, category);
+    return res.status(201).json(newExpense);
   } catch (err) {
     console.error(err);
     return res.status(500).json({ error: 'An internal error has occured' });
   }
 };
 
-const updateIncome = async (req, res) => {
-  const id = req.params.id;
+const updateExpense = async (req, res) => {
+  const id = req.params.id
   const {title, amount, wallet, date } = req.body;
 
   if(!id){
@@ -73,10 +77,15 @@ const updateIncome = async (req, res) => {
   if((typeof date !== "string" || id.length > 255 && date !== null)){
     return res.status(400).json({ error: "'date' must be a string shorter than 256"});
   }
+
+  if((typeof category !== "string" || id.length > 50) && wallet !== null){
+    return res.status(400).json({ error: "'category' must be a string shorter than 51"});
+  }
+
   try {
-    const update = await IncomeModel.updateIncome(id, title, amount, wallet, date);
+    const update = await ExpenseModel.updateExpense(id, title, amount, wallet, date, category);
     if (update == null){
-      return res.status(404).json({ error: `Income with id: ${id} does not exist`})
+      return res.status(404).json({ error: `Expense with id: ${id} does not exist`})
     }
     return res.status(200).json(update);
   } catch (err){
@@ -85,17 +94,17 @@ const updateIncome = async (req, res) => {
   }
 }
 
-const deleteIncome = async (req, res) => {
+const deleteExpense = async (req, res) => {
   const id = req.params.id;
   if(!id){
     return res.status(400).json({ error: "'id' cannot be empty"});
   }
   try {
-    const deleted = await IncomeModel.deleteIncome(id);
+    const deleted = await ExpenseModel.deleteExpense(id);
     if (deleted == null){
       return res.status(404).json({ error: `Income with id: ${id} does not exist`})
     }
-    return res.status(200).json({ success: `Succesfully deleted income with id: ${id}`});
+    return res.status(200).json({ success: `Succesfully deleted expense with id: ${id}`});
   } catch (err){
     console.error(err);
     return res.status(500).json({ error: "An internal error has occured"});
@@ -103,8 +112,8 @@ const deleteIncome = async (req, res) => {
 }
 
 module.exports = {
-    readIncome,
-    createIncome,
-    updateIncome,
-    deleteIncome
+    readExpense,
+    createExpense,
+    updateExpense,
+    deleteExpense
 };

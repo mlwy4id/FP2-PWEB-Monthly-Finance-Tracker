@@ -2,42 +2,43 @@ const db = require('../config/database');
 
 // Use { rows } to only get the rows from db
 
-async function getAllIncomes() {
-  const query = 'SELECT * FROM incomes';
+async function getAllExpenses() {
+  const query = 'SELECT * FROM expenses';
   const { rows } = await db.query(query);
   return rows
 }
 
-async function createIncome(id, title, amount, wallet, date){
+async function createExpense(id, title, amount, wallet, date, category){
   const query = `
-  INSERT INTO incomes (id, title, amount, wallet, date)
+  INSERT INTO expenses (id, title, amount, wallet, date, category)
   VALUES ($1, $2, $3, $4, $5)
   RETURNING *
   `;
-  const values = [id, title, amount, wallet, date];
+  const values = [id, title, amount, wallet, date, category];
   const { rows } = await db.query(query, values);
   return rows[0];
 }
 
-async function updateIncome(id, title, amount, wallet, date){
+async function updateExpense(id, title, amount, wallet, date){
   const query = `
-  UPDATE incomes
+  UPDATE expenses
   SET
   title = COALESCE ($1, title),
   amount = COALESCE ($2, amount),
   wallet = COALESCE ($3, wallet),
   date = COALESCE ($4, date)
-  WHERE id = $5
+  category = COALESCE ($5, category)
+  WHERE id = $6
   RETURNING *`
   //^ If null don't update
-  const values = [title, amount, wallet, date, id];
+  const values = [title, amount, wallet, date, category, id];
   const { rows } = await db.query(query, values);
   return rows[0];
 }
 
-async function deleteIncome(id){
+async function deleteExpense(id){
   const query = `
-  DELETE FROM incomes
+  DELETE FROM expenses
   WHERE id = $1
   RETURNING *`
   const values = [id];
@@ -46,8 +47,8 @@ async function deleteIncome(id){
 }
 
 module.exports = { 
-  getAllIncomes, 
-  createIncome,
-  updateIncome,
-  deleteIncome
+  getAllExpenses, 
+  createExpense,
+  updateExpense,
+  deleteExpense
 };
