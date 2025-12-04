@@ -2,7 +2,8 @@ const ExpenseModel = require('../models/expenseModel');
 
 const readExpense = async (req, res) =>{
     try{
-        const Expense = await ExpenseModel.getAllExpenses();
+        const email = req.user.email;
+        const Expense = await ExpenseModel.getAllExpenses(email);
         return res.status(200).json(Expense);
     } catch (err) {
         console.error(err);
@@ -11,6 +12,7 @@ const readExpense = async (req, res) =>{
 };
 
 const createExpense = async (req, res) => {
+  const email = req.user.email;
   const {id, title, amount, wallet, date, category} = req.body;
 
   if(!id || !title || !amount ||!wallet ||!date){
@@ -42,7 +44,7 @@ const createExpense = async (req, res) => {
   }
 
   try {
-    const newExpense = await ExpenseModel.createExpense(id, title, amount, wallet, date, category);
+    const newExpense = await ExpenseModel.createExpense(id, title, amount, wallet, date, category, email);
     return res.status(201).json(newExpense);
   } catch (err) {
     console.error(err);
@@ -51,6 +53,7 @@ const createExpense = async (req, res) => {
 };
 
 const updateExpense = async (req, res) => {
+  const email = req.user.email;
   const {id, title, amount, wallet, date } = req.body;
 
   if(!id){
@@ -82,7 +85,7 @@ const updateExpense = async (req, res) => {
   }
 
   try {
-    const update = await ExpenseModel.updateExpense(id, title, amount, wallet, date, category);
+    const update = await ExpenseModel.updateExpense(id, title, amount, wallet, date, category, email);
     if (update == null){
       return res.status(404).json({ error: `Expense with id: ${id} does not exist`})
     }
@@ -94,12 +97,13 @@ const updateExpense = async (req, res) => {
 }
 
 const deleteExpense = async (req, res) => {
+  const email = req.user.email;
   const id = req.body.id;
   if(!id){
     return res.status(400).json({ error: "'id' cannot be empty"});
   }
   try {
-    const deleted = await ExpenseModel.deleteExpense(id);
+    const deleted = await ExpenseModel.deleteExpense(id, email);
     if (deleted == null){
       return res.status(404).json({ error: `Income with id: ${id} does not exist`})
     }

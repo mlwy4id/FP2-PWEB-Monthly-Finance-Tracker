@@ -2,8 +2,9 @@ const BudgetModel = require('../models/budgetModel');
 
 const readBudget = async (req, res) =>{
     try{
-        const Income = await BudgetModel.getAllBudgets();
-        return res.status(200).json(Income);
+        const email = req.user.email;
+        const Budget = await BudgetModel.getAllBudgets(email);
+        return res.status(200).json(Budget);
     } catch (err) {
         console.error(err);
         return res.status(500).json({ error: 'An internal error has occured'});
@@ -11,6 +12,7 @@ const readBudget = async (req, res) =>{
 };
 
 const createBudget = async (req, res) => {
+  const email = req.user.email;
   const { id, category, amount } = req.body;
 
   if(!id || !category || !amount){
@@ -30,7 +32,7 @@ const createBudget = async (req, res) => {
   }
 
   try {
-    const newBudget = await BudgetModel.createBudget(id, category, amount);
+    const newBudget = await BudgetModel.createBudget(id, category, amount, email);
     return res.status(201).json(newBudget);
   } catch (err) {
     console.error(err);
@@ -39,6 +41,7 @@ const createBudget = async (req, res) => {
 };
 
 const updateBudget = async (req, res) => {
+  const email = req.user.email;
   const {id, category, amount} = req.body;
 
   if(!id){
@@ -58,7 +61,7 @@ const updateBudget = async (req, res) => {
   }
 
   try {
-    const update = await BudgetModel.updateBudget(id, category, amount);
+    const update = await BudgetModel.updateBudget(id, category, amount, email);
     if (update == null){
       return res.status(404).json({ error: `Budget with id: ${id} does not exist`})
     }
@@ -70,12 +73,13 @@ const updateBudget = async (req, res) => {
 }
 
 const deleteBudget = async (req, res) => {
+  const email = req.user.email;
   const id = req.body.id
   if(!id){
     return res.status(400).json({ error: "'id' cannot be empty"});
   }
   try {
-    const deleted = await BudgetModel.deleteBudget(id);
+    const deleted = await BudgetModel.deleteBudget(id, email);
     if (deleted == null){
       return res.status(404).json({ error: `Budget with id: ${id} does not exist`})
     }

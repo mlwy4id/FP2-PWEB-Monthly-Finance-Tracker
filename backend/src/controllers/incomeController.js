@@ -2,8 +2,9 @@ const IncomeModel = require('../models/incomeModel');
 
 const readIncome = async (req, res) =>{
     try{
+        const email = req.user.email;
         const Income = await IncomeModel.getAllIncomes();
-        return res.status(200).json(Income);
+        return res.status(200).json(Income, email);
     } catch (err) {
         console.error(err);
         return res.status(500).json({ error: 'An internal error has occured'});
@@ -11,6 +12,7 @@ const readIncome = async (req, res) =>{
 };
 
 const createIncome = async (req, res) => {
+  const email = req.user.email;
   const { id, title, amount, wallet, date } = req.body;
 
   if(!id || !title || !amount ||!wallet ||!date){
@@ -38,7 +40,7 @@ const createIncome = async (req, res) => {
   }
 
   try {
-    const newIncome = await IncomeModel.createIncome(id, title, amount, wallet, date);
+    const newIncome = await IncomeModel.createIncome(id, title, amount, wallet, date, email);
     return res.status(201).json(newIncome);
   } catch (err) {
     console.error(err);
@@ -47,6 +49,7 @@ const createIncome = async (req, res) => {
 };
 
 const updateIncome = async (req, res) => {
+  const email = req.user.email;
   const {id, title, amount, wallet, date } = req.body;
 
   if(!id){
@@ -74,7 +77,7 @@ const updateIncome = async (req, res) => {
   }
   
   try {
-    const update = await IncomeModel.updateIncome(id, title, amount, wallet, date);
+    const update = await IncomeModel.updateIncome(id, title, amount, wallet, date, email);
     if (update == null){
       return res.status(404).json({ error: `Income with id: ${id} does not exist`})
     }
@@ -86,12 +89,13 @@ const updateIncome = async (req, res) => {
 }
 
 const deleteIncome = async (req, res) => {
+  const email = req.user.email;
   const id = req.body.id;
   if(!id){
     return res.status(400).json({ error: "'id' cannot be empty"});
   }
   try {
-    const deleted = await IncomeModel.deleteIncome(id);
+    const deleted = await IncomeModel.deleteIncome(id, email);
     if (deleted == null){
       return res.status(404).json({ error: `Income with id: ${id} does not exist`})
     }
