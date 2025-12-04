@@ -5,9 +5,14 @@ const OverviewCard = ({
   children,
   logo,
   logoBg,
+  width
 }) => {
   return (
-    <Card className={`min-w-90 min-h-36`}>
+    <Card className={`
+      min-h-36
+      xl:min-w-64
+      lg:min-w-44
+    `}>
       <CardHeader className={`flex items-center -mb-3`}>
         <div
           className={`p-2 rounded-lg flex items-center justify-center ${logoBg}`}

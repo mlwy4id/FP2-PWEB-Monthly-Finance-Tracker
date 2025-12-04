@@ -1,5 +1,12 @@
+import PageLayout from "@/components/layouts/PageLayout";
+import ExpenseHistoryCard from "./components/ExpenseHistoryCard";
+
 const ExpenseHistory = () => {
-  return <h1>Expense History</h1>;
+  return(
+    <PageLayout title={`Expenses History`}>
+      <ExpenseHistoryCard/>
+    </PageLayout>
+  )
 };
 
 export default ExpenseHistory;

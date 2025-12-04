@@ -1,8 +1,6 @@
 // Import the database connection you already created
 const db = require('../src/config/database');
 
-const deleteTable = `DROP TABLE incomes`;
-
 const createTableQuery = `
   CREATE TABLE IF NOT EXISTS incomes (
     id VARCHAR(50) PRIMARY KEY,
@@ -16,7 +14,6 @@ const createTableQuery = `
 const initDb = async () => {
   try {
     // Run the query
-    await db.query(deleteTable);
     await db.query(createTableQuery);
     console.log('✅ Table "incomes" created successfully!');
   } catch (error) {

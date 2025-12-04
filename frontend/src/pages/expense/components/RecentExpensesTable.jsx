@@ -2,7 +2,6 @@ import { DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import useCategory from "@/store/useCategoryStore";
 import useExpense from "@/store/useExpenseStore";
 import useModal from "@/store/useModalStore";
-import useWallet from "@/store/useWalletStore";
 import { dateFormat } from "@/utils/dateFormat";
 import { moneyFormat } from "@/utils/moneyFormat";
 import {

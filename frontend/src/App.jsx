@@ -21,8 +21,11 @@ import useCategory from "./store/useCategoryStore";
 import useWallet from "./store/useWalletStore";
 import { defaultCategories } from "./data/defaultCategories";
 import { defaultWallets } from "./data/defaultWallets";
+import { useGetIncome } from "./hooks/useIncome";
 
 const App = () => {
+  // const { data: incomes, isLoading } = useGetIncome();
+  
   const modalName = useModal((state) => state.name);
   const setIncomes = useIncome((state) => state.setIncomes);
   const setExpenses = useExpense((state) => state.setExpenses);
@@ -30,10 +33,13 @@ const App = () => {
   const setWallets = useWallet((state) => state.setWallets);
 
   useEffect(() => {
-    setIncomes(mockIncomes);
+    // if(!isLoading && incomes) {
+    //   setIncomes(incomes);
+    // }
     setExpenses(mockExpenses);
+    setIncomes(mockIncomes);
     setCategories(defaultCategories);
-    setWallets(defaultWallets)
+    setWallets(defaultWallets);
   }, []);
 
   return (
@@ -58,16 +64,19 @@ const App = () => {
       </Sidebar>
 
       <div
-        className={`w-full flex-1 min-h-screen bg-slate-50 ${
+        className={`
+          w-full flex-1 min-h-screen bg-slate-50 ${
           modalName === "" ? "overflow-y-auto" : "overflow-hidden"
-        }`}
+        }
+          pt-10 md:pt-0
+        `}
       >
         <Routes>
           <Route path="/" element={<Dashboard />} />
-          <Route path="/income" element={<Income />} />
           <Route path="/income/history" element={<IncomeHistory />} />
-          <Route path="/expense" element={<Expense />} />
+          <Route path="/income" element={<Income />} />
           <Route path="/expense/history" element={<ExpenseHistory />} />
+          <Route path="/expense" element={<Expense />} />
           <Route path="/budget" element={<Budget />} />
         </Routes>
 

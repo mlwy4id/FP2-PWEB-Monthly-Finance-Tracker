@@ -13,7 +13,11 @@ const IncomeOverview = () => {
   const dailyIncome = dailyRecap(incomes);
 
   return (
-    <div className="flex justify-between items-center flex-wrap">
+    <div className="
+    grid gap-4
+    lg:grid-cols-3
+    md:grid-cols-1
+    ">
       <OverviewCard
         title="Total Income"
         logo={<FaDollarSign className="text-green-600" size={18} />}

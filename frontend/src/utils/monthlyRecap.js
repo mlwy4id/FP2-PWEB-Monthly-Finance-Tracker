@@ -18,3 +18,21 @@ export const monthlyRecap = (items) => {
 
   return total;
 };
+
+export const monthNRecap = (m, y, items) => {
+  const month = m + 1;
+
+  const total = items.reduce((acc, item) => {
+    const splitItem = item.date.split("-");
+    const itemMonth = Number(splitItem[1]);
+    const itemYear = Number(splitItem[0]);
+
+    if (itemMonth == month && itemYear == y) {
+      acc += item.amount;
+    }
+
+    return acc;
+  }, 0);
+
+  return total;
+}

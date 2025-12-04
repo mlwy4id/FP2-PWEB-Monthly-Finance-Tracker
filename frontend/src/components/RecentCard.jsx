@@ -24,7 +24,7 @@ const RecentCard = ({ type, title, button, children }) => {
         </CardTitle>
         {button}
       </CardHeader>
-      <CardContent>{RecentCardContent && <RecentCardContent />}</CardContent>
+      <CardContent className={`overflow-x-auto`}>{RecentCardContent && <RecentCardContent />}</CardContent>
       <CardFooter className={`flex justify-end`}>{children}</CardFooter>
     </Card>
   );
