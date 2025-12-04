@@ -1,7 +1,7 @@
 // Import the database connection you already created
 const db = require('../src/config/database');
 
-const tableList = ["incomes", "expenses"]; 
+const tableList = ["incomes", "expenses", "budgets"]; 
 
 const refresh = async (tableList) => {
   for (const table of tableList){
@@ -25,10 +25,18 @@ const createExpenses = `
     title VARCHAR(255) NOT NULL,
     amount INTEGER NOT NULL,
     wallet VARCHAR(50),
-    date VARCHAR(255) NOT NULL
+    date VARCHAR(255) NOT NULL,
     category VARCHAR(50) NOT NULL
   );
 `;
+
+const createBudgets = `
+  CREATE TABLE IF NOT EXISTS budgets (
+    id VARCHAR (50) PRIMARY KEY,
+    category VARCHAR(50),
+    amount INTEGER NOT NULL
+  );
+`
 
 const initDb = async () => {
   try {
@@ -39,6 +47,8 @@ const initDb = async () => {
     console.log('Table "incomes" created successfully!');
     await db.query(createExpenses);
     console.log('Table "expenses" created succesfully!');
+    await db.query(createBudgets);
+    console.log("Table budgets created succesfully!");
 
   } catch (error) {
     console.error('Database initialization failed:', error);

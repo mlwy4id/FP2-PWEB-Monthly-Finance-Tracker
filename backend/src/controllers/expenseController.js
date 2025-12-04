@@ -18,27 +18,27 @@ const createExpense = async (req, res) => {
   }
 
   if(typeof id !== "string" || id.length > 50){
-    return res.status(400).json({ error: "id must be a string shorter than 51"});
+    return res.status(400).json({ error: "'id' must be a string shorter than 51"});
   }
 
   if(typeof title !== "string" || id.length > 255){
-    return res.status(400).json({ error: "title must be a string shorter than 256"});
+    return res.status(400).json({ error: "'title' must be a string shorter than 256"});
   }
 
   if(!Number.isInteger(amount) || amount < 0){
-    return res.status(400).json({ error: "amount must be a positive integer preferably without any delimiters"});
+    return res.status(400).json({ error: "'amount' must be a positive integer preferably without any delimiters"});
   }
 
   if(typeof wallet !== "string" || id.length > 50){
-    return res.status(400).json({ error: "wallet must be a string shorter than 51"});
+    return res.status(400).json({ error: "'wallet' must be a string shorter than 51"});
   }
 
   if(typeof date !== "string" || id.length > 255){
-    return res.status(400).json({ error: "date must be a string shorter than 256"});
+    return res.status(400).json({ error: "'date' must be a string shorter than 256"});
   }
 
   if(typeof category !== "string" || id.length > 50){
-    return res.status(400).json({ error: "category must be a string shorter than 51"});
+    return res.status(400).json({ error: "'category' must be a string shorter than 51"});
   }
 
   try {
