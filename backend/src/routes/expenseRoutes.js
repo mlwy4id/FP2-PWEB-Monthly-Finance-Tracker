@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const controller = require('../controllers/expenseController');
-const { protect } = require('../middleware/authMiddleware')
+const { protect } = require('../middleware/authMiddleware');
 
 router.get('/', protect, controller.readExpense);
 router.post('/', protect, controller.createExpense);
