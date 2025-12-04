@@ -1,130 +1,51 @@
-const jwt = require('jsonwebtoken');
-const bcrypt = require('bcryptjs');
-const userModel = require('../models/userModel');
+const db = require('../config/database');
 
-const generateToken = (email) => {
-    return jwt.sign({ email }, process.env.JWT_SECRET, {
-        expiresIn: '30d',
-    });
-};
+async function getUser(email) {
+  const query = 'SELECT * FROM users WHERE email = $1';
+  const values = [email];
+  const { rows } = await db.query(query, values);
+  // FIX: Return rows[0] so we get an object (or undefined), not an array
+  return rows[0]; 
+}
 
-// @desc    Register a new user
-// @route   POST /api/users/register
-const registerUser = async (req, res) => {
-    const { email, username, password } = req.body;
+async function createUser(email, username, password){
+  const query = `
+    INSERT INTO users (email, username, password)
+    VALUES ($1, $2, $3)
+    RETURNING *
+  `;
+  const values = [email, username, password];
+  const { rows } = await db.query(query, values);
+  return rows[0];
+}
 
-    if (!email || !username || !password) {
-        return res.status(400).json({ error: 'Fields cannot be empty' });
-    }
+async function updateUser(email, username){
+  const query = `
+    UPDATE users
+    SET
+      username = COALESCE($1, username) -- FIX: Removed the extra comma here
+    WHERE email = $2
+    RETURNING *
+  `;
+  const values = [username, email];
+  const { rows } = await db.query(query, values);
+  return rows[0];
+}
 
-    try {
-        const existingUser = await userModel.getUser(email);
-        
-        if (existingUser) {
-            return res.status(400).json({ message: 'User with this email already exists' });
-        }
+async function deleteUser(email){
+  const query = `
+    DELETE FROM users
+    WHERE email = $1
+    RETURNING *
+  `;
+  const values = [email];
+  const { rows } = await db.query(query, values);
+  return rows[0];
+}
 
-        const salt = await bcrypt.genSalt(10);
-        const hashedPassword = await bcrypt.hash(password, salt);
-
-        const newUser = await userModel.createUser(email, username, hashedPassword);
-
-        res.status(201).json({
-            success: "Successfully created new user",
-            email: newUser.email,
-            username: newUser.username,
-            token: generateToken(newUser.email)
-        });
-
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: 'An internal problem has occurred' });
-    }
-};
-
-// @desc    Authenticate a user
-// @route   POST /api/users/login
-const loginUser = async (req, res) => {
-    const { email, password } = req.body;
-
-    if (!email || !password) {
-        return res.status(400).json({ message: 'Please include email and password' });
-    }
-
-    try {
-        const user = await userModel.getUser(email);
-
-        if (user && (await bcrypt.compare(password, user.password))) {
-            res.json({
-                email: user.email,
-                username: user.username,
-                token: generateToken(user.email)
-            });
-        } else {
-            res.status(401).json({ message: 'Wrong username or password' });
-        }
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: 'An internal problem has occurred' });
-    }
-};
-
-// @desc    Get current user data (Protected)
-// @route   GET /api/users/me
-const getMe = async (req, res) => {
-    // req.user is set by the authMiddleware
-    res.status(200).json(req.user);
-};
-
-// @desc    Update user profile (Username only for now)
-// @route   PUT /api/users/me
-const updateUserProfile = async (req, res) => {
-    const { username } = req.body;
-    const email = req.user.email; // Identify user from Token, not body
-
-    try {
-        const updatedUser = await userModel.updateUser(email, username);
-
-        if (!updatedUser) {
-            return res.status(404).json({ message: 'User not found' });
-        }
-
-        res.status(200).json({
-            message: 'User updated successfully',
-            user: updatedUser
-        });
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: 'An internal problem has occurred' });
-    }
-};
-
-// @desc    Delete user account
-// @route   DELETE /api/users/me
-const deleteUserProfile = async (req, res) => {
-    const email = req.user.email; // Identify user from Token
-
-    try {
-        const deletedUser = await userModel.deleteUser(email);
-
-        if (!deletedUser) {
-            return res.status(404).json({ message: 'User not found' });
-        }
-
-        res.status(200).json({ 
-            message: 'User deleted successfully',
-            id: deletedUser.email 
-        });
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: 'An internal problem has occurred' });
-    }
-};
-
-module.exports = {
-    registerUser,
-    loginUser,
-    getMe,
-    updateUserProfile, // Exported here
-    deleteUserProfile  // Exported here
+module.exports = { 
+  getUser, 
+  createUser,
+  updateUser,
+  deleteUser
 };

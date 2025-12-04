@@ -3,7 +3,7 @@ const IncomeModel = require('../models/incomeModel');
 const readIncome = async (req, res) =>{
     try{
         const email = req.user.email;
-        const Income = await IncomeModel.getAllIncomes();
+        const Income = await IncomeModel.getAllIncomes(email);
         return res.status(200).json(Income, email);
     } catch (err) {
         console.error(err);

@@ -55,7 +55,7 @@ const createBudgets = `
 const initDb = async () => {
   try {
     // Running queries
-    refresh(tableList);
+    await refresh(tableList);
 
     await db.query(createUsers);
     console.log('Table "users" created succesfully!')
